@@ -198,6 +198,8 @@ quantidade e total sem revelar custos internos ou margem.
     peça.
 12. **Dado** uma imagem PNG ou JPEG opcional da peça, **quando** o PDF for
     gerado, **então** ela aparecerá junto ao item sem ser armazenada.
+13. **Dado** uma cor principal válida, **quando** o PDF for gerado, **então**
+    cabeçalho e destaques usarão a identidade escolhida com texto legível.
 
 ## Casos de borda
 
@@ -316,6 +318,10 @@ quantidade e total sem revelar custos internos ou margem.
   sem expor ao cliente o planejamento das impressões.
 - **RF-051**: o sistema deve aceitar imagem PNG ou JPEG opcional da peça, de até
   2 MB, usá-la apenas na geração atual e mostrá-la junto ao item.
+- **RF-052**: o vendedor deve poder definir a cor principal por hexadecimal,
+  paleta nativa e conta-gotas quando suportado pelo navegador.
+- **RF-053**: a cor deve ser persistida com o perfil e aplicada ao PDF com cor de
+  texto escolhida automaticamente para preservar a legibilidade.
 
 ## Regras de negócio e fórmulas
 

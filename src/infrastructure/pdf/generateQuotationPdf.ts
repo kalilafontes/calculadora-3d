@@ -5,12 +5,28 @@ import type {
 } from "../../domain/quotation/quotation.types";
 
 const COLORS = {
-  primary: [190, 24, 93] as const,
-  primarySoft: [252, 231, 243] as const,
   text: [43, 23, 34] as const,
   muted: [115, 87, 101] as const,
-  border: [234, 213, 223] as const,
   white: [255, 255, 255] as const,
+};
+
+type RgbColor = readonly [number, number, number];
+
+const hexToRgb = (hex: string): RgbColor => [
+  Number.parseInt(hex.slice(1, 3), 16),
+  Number.parseInt(hex.slice(3, 5), 16),
+  Number.parseInt(hex.slice(5, 7), 16),
+];
+
+const mixWithWhite = (color: RgbColor, whiteRatio: number): RgbColor =>
+  color.map((channel) =>
+    Math.round(channel + (255 - channel) * whiteRatio),
+  ) as unknown as RgbColor;
+
+const readableTextColor = (color: RgbColor): RgbColor => {
+  const luminance =
+    (0.2126 * color[0] + 0.7152 * color[1] + 0.0722 * color[2]) / 255;
+  return luminance > 0.58 ? COLORS.text : COLORS.white;
 };
 
 const formatCurrency = (value: number) =>
@@ -84,12 +100,16 @@ export async function generateQuotationPdf(
   const pageHeight = pdf.internal.pageSize.getHeight();
   const margin = 18;
   const contentWidth = pageWidth - margin * 2;
+  const primary = hexToRgb(data.seller.brandColor);
+  const primarySoft = mixWithWhite(primary, 0.88);
+  const primaryBorder = mixWithWhite(primary, 0.75);
+  const onPrimary = readableTextColor(primary);
   const totalPrice = data.unitPrice * data.quantity;
   const validUntil = addDays(data.issuedAt, data.validityDays);
 
   pdf.setFillColor(...COLORS.white);
   pdf.rect(0, 0, pageWidth, pageHeight, "F");
-  pdf.setFillColor(...COLORS.primary);
+  pdf.setFillColor(...primary);
   pdf.rect(0, 0, pageWidth, 42, "F");
 
   if (data.logoDataUrl) {
@@ -113,7 +133,7 @@ export async function generateQuotationPdf(
   }
 
   const sellerStart = data.logoDataUrl ? margin + 30 : margin;
-  pdf.setTextColor(...COLORS.white);
+  pdf.setTextColor(...onPrimary);
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
   pdf.text(data.seller.name, sellerStart, 17);
@@ -147,9 +167,9 @@ export async function generateQuotationPdf(
   pdf.text(formatDate(validUntil), margin + 111, y + 6);
 
   y += 18;
-  pdf.setFillColor(...COLORS.primarySoft);
+  pdf.setFillColor(...primarySoft);
   pdf.roundedRect(margin, y, contentWidth, 28, 3, 3, "F");
-  pdf.setTextColor(...COLORS.primary);
+  pdf.setTextColor(...primary);
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(8);
   pdf.text("CLIENTE", margin + 6, y + 8);
@@ -164,7 +184,7 @@ export async function generateQuotationPdf(
   }
 
   y += 39;
-  pdf.setTextColor(...COLORS.primary);
+  pdf.setTextColor(...primary);
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(8);
   pdf.text("PROJETO", margin, y);
@@ -176,7 +196,7 @@ export async function generateQuotationPdf(
 
   const tableHeaderHeight = 10;
   const tableRowHeight = data.productImageDataUrl ? 28 : 18;
-  pdf.setFillColor(...COLORS.primary);
+  pdf.setFillColor(...primary);
   pdf.roundedRect(
     margin,
     y,
@@ -188,7 +208,7 @@ export async function generateQuotationPdf(
   );
   pdf.setFillColor(...COLORS.white);
   pdf.rect(margin, y + tableHeaderHeight, contentWidth, tableRowHeight, "F");
-  pdf.setTextColor(...COLORS.white);
+  pdf.setTextColor(...onPrimary);
   pdf.setFontSize(8);
   pdf.setFont("helvetica", "bold");
   pdf.text("ITEM", margin + 5, y + 6.5);
@@ -202,7 +222,7 @@ export async function generateQuotationPdf(
   let itemTextX = margin + 5;
   let itemTextWidth = 72;
   if (data.productImageDataUrl) {
-    pdf.setFillColor(...COLORS.primarySoft);
+    pdf.setFillColor(...primarySoft);
     pdf.roundedRect(margin + 4, y + 12, 25, 22, 1.5, 1.5, "F");
     try {
       addContainedImage(
@@ -231,14 +251,14 @@ export async function generateQuotationPdf(
   });
 
   y += tableHeaderHeight + tableRowHeight + 10;
-  pdf.setDrawColor(...COLORS.border);
+  pdf.setDrawColor(...primaryBorder);
   pdf.line(margin, y, pageWidth - margin, y);
   y += 10;
   pdf.setTextColor(...COLORS.muted);
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(9);
   pdf.text("Valor total do orçamento", margin, y);
-  pdf.setTextColor(...COLORS.primary);
+  pdf.setTextColor(...primary);
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(19);
   pdf.text(formatCurrency(totalPrice), pageWidth - margin, y + 1, {
@@ -315,7 +335,7 @@ export async function generateQuotationPdf(
     pdf.text(noteLines.slice(0, 8), margin, y + 7);
   }
 
-  pdf.setDrawColor(...COLORS.border);
+  pdf.setDrawColor(...primaryBorder);
   pdf.line(margin, pageHeight - 23, pageWidth - margin, pageHeight - 23);
   pdf.setTextColor(...COLORS.muted);
   pdf.setFont("helvetica", "normal");

@@ -20,6 +20,11 @@ export class LocalStorageSellerProfileRepository {
         email: typeof profile.email === "string" ? profile.email : "",
         phone: typeof profile.phone === "string" ? profile.phone : "",
         document: typeof profile.document === "string" ? profile.document : "",
+        brandColor:
+          typeof profile.brandColor === "string" &&
+          /^#[0-9a-fA-F]{6}$/.test(profile.brandColor)
+            ? profile.brandColor.toUpperCase()
+            : "#BE185D",
       };
     } catch {
       return null;

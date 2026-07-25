@@ -362,6 +362,10 @@ backend ou autenticação.
 - [x] T091 Atualizar PDF, interface, testes e documentação para o modelo de mesa
       completa
 - [x] T092 Permitir imagem transitória e opcional da peça junto ao item do PDF
+- [x] T093 Adicionar cor de marca persistente com hexadecimal, paleta e
+      conta-gotas progressivo
+- [x] T094 Aplicar a identidade de cor ao PDF com contraste automático e revisão
+      visual
 
 ## Dependências entre fases
 

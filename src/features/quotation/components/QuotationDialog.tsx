@@ -28,6 +28,16 @@ const readImage = (file: File): Promise<string> =>
     reader.readAsDataURL(file);
   });
 
+interface EyeDropperResult {
+  sRGBHex: string;
+}
+
+interface EyeDropperInstance {
+  open(): Promise<EyeDropperResult>;
+}
+
+type EyeDropperConstructor = new () => EyeDropperInstance;
+
 export function QuotationDialog({ result, onClose }: QuotationDialogProps) {
   const sellerRepository = useMemo(
     () => new LocalStorageSellerProfileRepository(),
@@ -42,6 +52,7 @@ export function QuotationDialog({ result, onClose }: QuotationDialogProps) {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<QuotationFormValues, unknown, ParsedQuotationFormValues>({
     resolver: zodResolver(quotationFormSchema),
@@ -50,6 +61,7 @@ export function QuotationDialog({ result, onClose }: QuotationDialogProps) {
       sellerEmail: savedSeller?.email ?? "",
       sellerPhone: savedSeller?.phone ?? "",
       sellerDocument: savedSeller?.document ?? "",
+      brandColor: savedSeller?.brandColor ?? "#BE185D",
       clientName: "",
       clientContact: "",
       projectTitle: "",
@@ -65,11 +77,15 @@ export function QuotationDialog({ result, onClose }: QuotationDialogProps) {
     },
   });
   const quantity = Number(useWatch({ control, name: "quantity" })) || 0;
+  const brandColor = useWatch({ control, name: "brandColor" });
   const paymentMethods = useWatch({ control, name: "paymentMethods" }) ?? [];
   const upfrontPercentage =
     Number(useWatch({ control, name: "upfrontPercentage" })) || 0;
   const total = result.unitSuggestedPrice * quantity;
   const upfrontAmount = total * (upfrontPercentage / 100);
+  const EyeDropper = (
+    window as unknown as { EyeDropper?: EyeDropperConstructor }
+  ).EyeDropper;
 
   const submit = handleSubmit(async (values) => {
     const seller = {
@@ -77,6 +93,7 @@ export function QuotationDialog({ result, onClose }: QuotationDialogProps) {
       email: values.sellerEmail,
       phone: values.sellerPhone,
       document: values.sellerDocument,
+      brandColor: values.brandColor,
     };
     setIsGenerating(true);
     try {
@@ -151,6 +168,61 @@ export function QuotationDialog({ result, onClose }: QuotationDialogProps) {
                 E-mail (opcional)
                 <input {...register("sellerEmail")} inputMode="email" />
               </label>
+              <div className={styles.full}>
+                <span className={styles.fieldLabel}>
+                  Cor principal da marca
+                </span>
+                <div className={styles.colorField}>
+                  <input
+                    type="color"
+                    value={
+                      /^#[0-9a-fA-F]{6}$/.test(brandColor ?? "")
+                        ? brandColor
+                        : "#BE185D"
+                    }
+                    aria-label="Escolher cor da marca"
+                    onChange={(event) =>
+                      setValue("brandColor", event.target.value.toUpperCase(), {
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      })
+                    }
+                  />
+                  <input
+                    {...register("brandColor")}
+                    aria-label="Cor hexadecimal da marca"
+                    placeholder="#BE185D"
+                    maxLength={7}
+                  />
+                  {EyeDropper ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        void new EyeDropper()
+                          .open()
+                          .then(({ sRGBHex }) =>
+                            setValue("brandColor", sRGBHex.toUpperCase(), {
+                              shouldDirty: true,
+                              shouldValidate: true,
+                            }),
+                          )
+                          .catch(() => undefined);
+                      }}
+                    >
+                      Conta-gotas
+                    </button>
+                  ) : null}
+                </div>
+                {errors.brandColor ? (
+                  <small className={styles.fieldError}>
+                    {errors.brandColor.message}
+                  </small>
+                ) : (
+                  <small className={styles.fileHint}>
+                    Aplicada ao cabeçalho e aos destaques do PDF.
+                  </small>
+                )}
+              </div>
               <label className={styles.full}>
                 Logotipo (PNG ou JPG, opcional)
                 <input

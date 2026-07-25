@@ -13,6 +13,11 @@ export const quotationFormSchema = z
     sellerEmail: z.string().trim().max(120),
     sellerPhone: z.string().trim().max(30),
     sellerDocument: z.string().trim().max(30),
+    brandColor: z
+      .string()
+      .trim()
+      .regex(/^#[0-9a-fA-F]{6}$/, "Use uma cor hexadecimal como #BE185D.")
+      .transform((color) => color.toUpperCase()),
     clientName: trimmedText("Nome do cliente", 100),
     clientContact: z.string().trim().max(120),
     projectTitle: trimmedText("Descrição do projeto", 140),

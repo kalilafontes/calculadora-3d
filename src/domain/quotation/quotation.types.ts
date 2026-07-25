@@ -3,6 +3,7 @@ export interface SellerProfile {
   email: string;
   phone: string;
   document: string;
+  brandColor: string;
 }
 
 export type PaymentMethod =

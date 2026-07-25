@@ -9,6 +9,7 @@ describe("generateQuotationPdf", () => {
         email: "contato@example.com",
         phone: "(71) 99999-9999",
         document: "",
+        brandColor: "#2563EB",
       },
       clientName: "Maria",
       clientContact: "maria@example.com",

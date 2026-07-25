@@ -6,6 +6,7 @@ const validQuotation = {
   sellerEmail: "contato@example.com",
   sellerPhone: "(71) 99999-9999",
   sellerDocument: "",
+  brandColor: "#BE185D",
   clientName: "Maria",
   clientContact: "",
   projectTitle: "Suportes personalizados",
@@ -25,10 +26,20 @@ describe("quotationFormSchema", () => {
     const quotation = quotationFormSchema.parse(validQuotation);
 
     expect(quotation.sellerName).toBe("Ateliê 3D");
+    expect(quotation.brandColor).toBe("#BE185D");
     expect(quotation.quantity).toBe(20);
     expect(quotation.validityDays).toBe(7);
     expect(quotation.productionLeadTime).toBe(8);
     expect(quotation.upfrontPercentage).toBe(50);
+  });
+
+  it("rejeita uma cor de marca inválida", () => {
+    const result = quotationFormSchema.safeParse({
+      ...validQuotation,
+      brandColor: "#rosa",
+    });
+
+    expect(result.success).toBe(false);
   });
 
   it("rejeita nomes vazios, quantidade zero e validade excessiva", () => {

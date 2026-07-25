@@ -25,6 +25,7 @@ com base na margem desejada.
 - retorno suave ao topo ao reabrir um cálculo salvo;
 - orçamento profissional em PDF com vendedor, cliente, quantidade e validade;
 - logotipo e imagem da peça opcionais, com cálculo automático do total;
+- cor personalizada por hexadecimal, paleta ou conta-gotas compatível;
 - prazo de produção, meios de pagamento, chave Pix, entrada e cuidados
   estruturados;
 - tema claro e escuro;
@@ -170,6 +171,10 @@ fatiador, incluindo todas as peças e suportes da mesa. A quantidade de peças
 serve para calcular os equivalentes unitários. O orçamento apresenta ao cliente
 somente quantidade, preço por peça e total. Uma foto opcional pode identificar
 visualmente o item e não é armazenada.
+
+A cor principal da empresa é lembrada com o perfil do vendedor e aplicada ao
+cabeçalho e aos destaques. O seletor aceita hexadecimal, a paleta nativa do
+navegador e, quando disponível, conta-gotas para capturar uma cor da tela.
 
 ## Evolução planejada
 

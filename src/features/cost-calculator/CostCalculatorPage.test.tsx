@@ -125,5 +125,11 @@ describe("CostCalculatorPage", () => {
     ).toBeInTheDocument();
     expect(screen.getByLabelText("Nome ou empresa")).toBeInTheDocument();
     expect(screen.getByLabelText("Nome do cliente")).toBeInTheDocument();
+    expect(screen.getByLabelText("Escolher cor da marca")).toHaveValue(
+      "#be185d",
+    );
+    expect(screen.getByLabelText("Cor hexadecimal da marca")).toHaveValue(
+      "#BE185D",
+    );
   });
 });

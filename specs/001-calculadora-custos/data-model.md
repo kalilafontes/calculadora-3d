@@ -176,9 +176,9 @@ interface QuotationData {
 ```
 
 O total é `quantity × unitPrice`, usando o preço por peça derivado do cálculo.
-`SellerProfile` contém nome, e-mail, telefone e documento. Apenas esse perfil é
-persistido; dados do cliente, projeto, observações, logotipo e imagem da peça
-não são armazenados.
+`SellerProfile` contém nome, e-mail, telefone, documento e `brandColor` no
+formato hexadecimal `#RRGGBB`. Apenas esse perfil é persistido; dados do cliente,
+projeto, observações, logotipo e imagem da peça não são armazenados.
 
 `PaymentMethod` aceita `pix`, `cash`, `credit-card`, `debit-card` e
 `bank-transfer`. Quando Pix estiver presente, `pixKey` é obrigatória. Entrada e
