@@ -1,0 +1,37 @@
+.card {
+  padding: 1.4rem;
+  border-radius: var(--radius-lg);
+  color: #fff7fb;
+  background:
+    radial-gradient(circle at 90% 10%, rgb(251 113 180 / 34%), transparent 35%),
+    linear-gradient(145deg, #9d174d, #500724);
+  box-shadow: 0 1rem 2.5rem rgb(80 7 36 / 24%);
+}
+
+.label {
+  margin: 0;
+  color: #fbcfe8;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.price {
+  margin: 0.25rem 0 1rem;
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.profit {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(255 255 255 / 18%);
+}
+
+.note {
+  margin: 1rem 0 0;
+  color: #f5d9e8;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}

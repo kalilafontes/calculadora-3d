@@ -1,0 +1,25 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.toggle:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.toggle span {
+  color: var(--color-primary);
+  font-size: 1rem;
+  line-height: 1;
+}

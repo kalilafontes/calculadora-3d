@@ -1,0 +1,64 @@
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.label {
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 650;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.control:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-focus-soft);
+}
+
+.input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0.8rem 0.9rem;
+  color: var(--color-text);
+  background: transparent;
+}
+
+.unit {
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  padding-inline: 0.75rem;
+  color: var(--color-text-muted);
+  background: var(--color-subtle);
+  border-left: 1px solid var(--color-border);
+  font-size: 0.8rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.help,
+.error {
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.help {
+  color: var(--color-text-muted);
+}
+
+.error {
+  color: var(--color-danger);
+}

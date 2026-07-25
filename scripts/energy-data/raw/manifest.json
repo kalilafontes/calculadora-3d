@@ -1,0 +1,21 @@
+{
+  "retrievedAt": "2026-07-24T00:00:00.000Z",
+  "sources": {
+    "market": {
+      "name": "SAMP 2025",
+      "resourceId": "6fac5605-5df0-469d-be08-04ee22934f60",
+      "fileName": "samp-2025.csv",
+      "url": "https://dadosabertos.aneel.gov.br/dataset/3e153db4-a503-4093-88be-75d31b002dcf/resource/6fac5605-5df0-469d-be08-04ee22934f60/download/samp-2025.csv",
+      "hash": "c1d926364efd029bdd13af51c5cea789",
+      "encoding": "latin1"
+    },
+    "distributorStates": {
+      "name": "PDD Distribuição ANEEL",
+      "resourceId": "30b8fbb7-4d7a-49d1-8985-97e9bb7d65e0",
+      "fileName": "pdd-distribuicao-aneel.csv",
+      "url": "https://dadosabertos.aneel.gov.br/dataset/6838f13d-7ea5-4482-a2b9-1515fa56ef42/resource/30b8fbb7-4d7a-49d1-8985-97e9bb7d65e0/download/pdd-distribuicao-aneel.csv",
+      "hash": "1f8b439ee1b4c26f8bd2e80e67dd78a4",
+      "encoding": "utf8"
+    }
+  }
+}
