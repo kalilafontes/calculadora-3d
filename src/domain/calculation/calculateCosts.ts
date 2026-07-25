@@ -20,6 +20,7 @@ export function calculateCosts(input: CalculationInput): CalculationResult {
     laborCost +
     input.otherCosts;
   const suggestedPrice = totalCost / (1 - input.marginPercentage / 100);
+  const profit = suggestedPrice - totalCost;
 
   return {
     filamentCost,
@@ -31,6 +32,10 @@ export function calculateCosts(input: CalculationInput): CalculationResult {
     otherCosts: input.otherCosts,
     totalCost,
     suggestedPrice,
-    profit: suggestedPrice - totalCost,
+    profit,
+    piecesPerPrint: input.piecesPerPrint,
+    unitTotalCost: totalCost / input.piecesPerPrint,
+    unitSuggestedPrice: suggestedPrice / input.piecesPerPrint,
+    unitProfit: profit / input.piecesPerPrint,
   };
 }

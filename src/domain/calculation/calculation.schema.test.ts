@@ -24,6 +24,7 @@ describe("calculationSchema", () => {
 
     expect(result.weightGrams).toBe(100.5);
     expect(result.energyPricePerKwh).toBe(1.05);
+    expect(result.piecesPerPrint).toBe(1);
   });
 
   it("aceita mão de obra direta", () => {
@@ -61,6 +62,8 @@ describe("calculationSchema", () => {
     ["energyPricePerKwh", "não é número"],
     ["packagingCost", ""],
     ["otherCosts", Number.POSITIVE_INFINITY],
+    ["piecesPerPrint", 0],
+    ["piecesPerPrint", 1.5],
   ])("rejeita %s inválido", (field, value) => {
     const result = calculationSchema.safeParse({
       ...validInput,

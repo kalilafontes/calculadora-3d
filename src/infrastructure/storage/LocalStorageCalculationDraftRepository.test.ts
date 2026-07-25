@@ -10,6 +10,7 @@ const draft: CalculationDraft = {
   savedAt: "2026-07-24T12:00:00Z",
   input: {
     weightGrams: 100,
+    piecesPerPrint: 1,
     filamentPricePerKg: 100,
     printTimeHours: 2,
     printerPowerWatts: 200,

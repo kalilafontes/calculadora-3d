@@ -2,6 +2,7 @@ import type { CalculationInput } from "../../domain/calculation/calculation.type
 
 export const calculationDefaults: CalculationInput = {
   weightGrams: 0,
+  piecesPerPrint: 1,
   filamentPricePerKg: 0,
   printTimeHours: 0,
   printerPowerWatts: 0,

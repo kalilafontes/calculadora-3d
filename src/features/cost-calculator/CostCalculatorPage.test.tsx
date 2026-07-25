@@ -8,14 +8,16 @@ describe("CostCalculatorPage", () => {
     const user = userEvent.setup();
     render(<CostCalculatorPage />);
 
-    expect(screen.getByText("Preço sugerido")).toBeInTheDocument();
-    expect(screen.getByText("Custo total")).toBeInTheDocument();
+    expect(screen.getByText("Preço da impressão completa")).toBeInTheDocument();
+    expect(screen.getByText("Custo total da mesa")).toBeInTheDocument();
 
-    const weight = screen.getByLabelText("Peso da peça");
+    const weight = screen.getByLabelText("Peso total da impressão");
     await user.clear(weight);
     await user.type(weight, "200");
 
-    expect(await screen.findByText("R$ 46,89")).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { name: /46,89/ }),
+    ).toBeInTheDocument();
   });
 
   it("alterna para mão de obra com valor direto", async () => {
@@ -24,7 +26,9 @@ describe("CostCalculatorPage", () => {
 
     await user.click(screen.getByLabelText("Valor direto"));
 
-    expect(screen.getByLabelText("Mão de obra por peça")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("Mão de obra da impressão"),
+    ).toBeInTheDocument();
     expect(
       screen.queryByLabelText("Tempo de trabalho"),
     ).not.toBeInTheDocument();
@@ -90,7 +94,7 @@ describe("CostCalculatorPage", () => {
     const user = userEvent.setup();
     render(<CostCalculatorPage />);
 
-    const weight = screen.getByLabelText("Peso da peça");
+    const weight = screen.getByLabelText("Peso total da impressão");
     await user.clear(weight);
     await user.type(weight, "321");
 
@@ -106,5 +110,20 @@ describe("CostCalculatorPage", () => {
 
     expect(weight).toHaveValue("100");
     expect(window.localStorage.getItem("calculadora3d:draft:v1")).toBeNull();
+  });
+
+  it("abre o formulário de orçamento a partir do resultado", async () => {
+    const user = userEvent.setup();
+    render(<CostCalculatorPage />);
+
+    await user.click(
+      screen.getByRole("button", { name: "Gerar orçamento em PDF" }),
+    );
+
+    expect(
+      screen.getByRole("dialog", { name: "Gerar orçamento em PDF" }),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText("Nome ou empresa")).toBeInTheDocument();
+    expect(screen.getByLabelText("Nome do cliente")).toBeInTheDocument();
   });
 });

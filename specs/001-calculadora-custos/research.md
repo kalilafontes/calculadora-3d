@@ -177,3 +177,32 @@ usuário a tomar e coincide com o endereço público.
 
 **Compatibilidade**: nomes internos de Local Storage e IndexedDB permanecem como
 `calculadora3d` para que a mudança de identidade não apague dados existentes.
+
+## 16. Geração de orçamento
+
+**Decisão**: gerar PDF A4 inteiramente no frontend com jsPDF.
+
+**Motivo**: o documento pode ser criado e baixado sem conta, backend ou envio de
+dados comerciais. O preço por peça derivado do cálculo é multiplicado pela
+quantidade solicitada.
+
+**Privacidade comercial**: custo, lucro e margem não aparecem no documento do
+cliente. Somente o perfil do vendedor é lembrado no Local Storage; dados do
+cliente e logotipo permanecem transitórios.
+
+**Qualidade**: uma amostra deve ser renderizada como imagem e revisada
+visualmente sempre que o layout do PDF sofrer alteração material.
+
+## 17. Impressão completa como unidade econômica
+
+**Decisão**: peso, tempo e custos informados representam uma impressão completa,
+como exibida pelo fatiador. `piecesPerPrint` informa quantas peças existem nessa
+mesa e permite derivar valores unitários sem alterar o custo real da operação.
+
+**Motivo**: energia, tempo de máquina, suportes e perdas pertencem normalmente à
+mesa inteira. Tratar esses números como se fossem de uma única peça
+superestimaria o orçamento quando várias unidades são impressas juntas.
+
+**Orçamento**: apresentar somente quantidade, preço por peça e total ao cliente.
+A foto opcional da peça é transitória e aparece junto ao item para facilitar sua
+identificação.

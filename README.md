@@ -1,7 +1,7 @@
 # Quanto Cobrar 3D
 
 Aplicação web para ajudar makers e pequenos negócios de impressão 3D a
-descobrir o custo real de uma peça e definir um preço de venda sustentável.
+descobrir o custo real de uma impressão e definir um preço de venda sustentável.
 
 Em vez de considerar somente o filamento, o Quanto Cobrar 3D reúne material,
 energia, tempo de impressão, mão de obra, embalagem, perdas e outros custos. O
@@ -11,6 +11,8 @@ com base na margem desejada.
 ## O que a V2 oferece
 
 - cálculo de filamento, energia, perdas, mão de obra e custos adicionais;
+- custos informados para a impressão completa, com quantidade de peças por mesa;
+- preço da impressão e valores equivalentes por peça;
 - preço sugerido usando margem bruta e lucro estimado;
 - estimativa de energia por estado e distribuidora;
 - perfil energético B1 residencial convencional, com valor do kWh editável;
@@ -21,6 +23,10 @@ com base na margem desejada.
 - cálculos nomeados salvos em IndexedDB;
 - lista dos cinco cálculos recentes, com reabertura e exclusão;
 - retorno suave ao topo ao reabrir um cálculo salvo;
+- orçamento profissional em PDF com vendedor, cliente, quantidade e validade;
+- logotipo e imagem da peça opcionais, com cálculo automático do total;
+- prazo de produção, meios de pagamento, chave Pix, entrada e cuidados
+  estruturados;
 - tema claro e escuro;
 - interface responsiva para celular e desktop.
 
@@ -145,6 +151,25 @@ O produto usa a marca **Quanto Cobrar 3D** e será publicado em
 `quantocobrar3d.com`. As chaves técnicas legadas `calculadora3d:*` e o banco
 IndexedDB `calculadora3d` são preservados para manter compatibilidade com os
 rascunhos, temas e cálculos já salvos pelos usuários.
+
+## Orçamentos em PDF
+
+Um cálculo válido pode ser transformado em orçamento diretamente no navegador.
+O documento apresenta somente o preço de venda, sem expor custo, lucro ou margem
+ao cliente. Nome e contato do vendedor são lembrados localmente; dados do
+cliente, observações e logotipo são usados apenas durante a geração do arquivo.
+O PDF não é enviado a nenhum servidor.
+
+As condições comerciais são preenchidas por controles simples: prazo em dias
+úteis ou corridos, formas de pagamento, chave Pix condicional e percentual de
+entrada com saldo calculado. Orientações padrão de cuidado podem ser incluídas
+com uma única seleção, reduzindo a necessidade de escrever textos repetitivos.
+
+Peso, tempo e demais custos representam a impressão completa mostrada pelo
+fatiador, incluindo todas as peças e suportes da mesa. A quantidade de peças
+serve para calcular os equivalentes unitários. O orçamento apresenta ao cliente
+somente quantidade, preço por peça e total. Uma foto opcional pode identificar
+visualmente o item e não é armazenada.
 
 ## Evolução planejada
 

@@ -185,6 +185,10 @@ Salvar com título → SavedCalculationRepository → IndexedDB → Recentes
 5. **Componentes**: recálculo, mensagens, origem manual/estimada e limpeza.
 6. **Integração**: um cenário completo de cada história de usuário.
 
+O domínio mantém a impressão completa como unidade econômica. Valores por peça
+são derivados de `piecesPerPrint`, e o orçamento usa o preço unitário para
+apresentar ao cliente quantidade, valor por peça e total.
+
 O Vitest deve aplicar limiar de 100% de linhas, funções, branches e statements
 em `src/domain/calculation/**`, excluindo arquivos exclusivamente declarativos
 quando justificado e documentado.
@@ -215,15 +219,16 @@ e verificação de desempenho percebido.
 
 ## Riscos e mitigação
 
-| Risco                                           | Mitigação                                                          |
-| ----------------------------------------------- | ------------------------------------------------------------------ |
-| Usuário interpretar estimativa como valor exato | rótulo “estimativa”, fonte, competência e edição manual            |
-| Distribuidora atuar em mais de uma UF           | cadastro separado e estimativa específica por par UF/distribuidora |
-| Dados ANEEL incompletos/defasados               | competência visível, fallback estadual/manual                      |
-| Fórmula de margem confundida com markup         | ajuda contextual e exemplo de R$ 80 → R$ 100                       |
-| Armazenamento local indisponível                | fallback sem bloqueio e feedback na interface                      |
-| Usuário presumir sincronização                  | aviso “Somente neste navegador”                                    |
-| Excesso de campos no celular                    | agrupamento progressivo sem esconder resultados                    |
+| Risco                                            | Mitigação                                                          |
+| ------------------------------------------------ | ------------------------------------------------------------------ |
+| Usuário interpretar estimativa como valor exato  | rótulo “estimativa”, fonte, competência e edição manual            |
+| Distribuidora atuar em mais de uma UF            | cadastro separado e estimativa específica por par UF/distribuidora |
+| Dados ANEEL incompletos/defasados                | competência visível, fallback estadual/manual                      |
+| Fórmula de margem confundida com markup          | ajuda contextual e exemplo de R$ 80 → R$ 100                       |
+| Armazenamento local indisponível                 | fallback sem bloqueio e feedback na interface                      |
+| Usuário presumir sincronização                   | aviso “Somente neste navegador”                                    |
+| Excesso de campos no celular                     | agrupamento progressivo sem esconder resultados                    |
+| Custos da mesa interpretados como custo unitário | rótulos explícitos e resultados separados por impressão e por peça |
 
 ## Critérios de saída do planejamento
 

@@ -1,0 +1,38 @@
+.card {
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 100% 0, var(--color-glow), transparent 45%),
+    var(--color-surface);
+}
+
+.card > span {
+  color: var(--color-primary);
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.card h2 {
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+}
+
+.card p {
+  margin: 0.45rem 0 1rem;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.card button {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 0;
+  border-radius: var(--radius-md);
+  color: white;
+  background: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 850;
+}

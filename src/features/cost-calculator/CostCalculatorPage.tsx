@@ -28,10 +28,13 @@ import { SavedCalculations } from "./components/SavedCalculations";
 import { useCalculationDraft } from "./hooks/useCalculationDraft";
 import { useEnergyEstimate } from "./hooks/useEnergyEstimate";
 import { useSavedCalculations } from "./hooks/useSavedCalculations";
+import { QuotationAction } from "../quotation/components/QuotationAction";
+import { QuotationDialog } from "../quotation/components/QuotationDialog";
 import styles from "./CostCalculatorPage.module.css";
 
 export interface FormValues {
   weightGrams: string;
+  piecesPerPrint: string;
   filamentPricePerKg: string;
   printTimeHours: string;
   printerPowerWatts: string;
@@ -54,6 +57,7 @@ export interface FormValues {
 
 const defaults: FormValues = {
   weightGrams: "100",
+  piecesPerPrint: "1",
   filamentPricePerKg: "100",
   printTimeHours: "2",
   printerPowerWatts: "200",
@@ -76,6 +80,7 @@ const defaults: FormValues = {
 
 const toFormValues = (input: CalculationInput): FormValues => ({
   weightGrams: String(input.weightGrams).replace(".", ","),
+  piecesPerPrint: String(input.piecesPerPrint ?? 1),
   filamentPricePerKg: String(input.filamentPricePerKg).replace(".", ","),
   printTimeHours: String(input.printTimeHours).replace(".", ","),
   printerPowerWatts: String(input.printerPowerWatts).replace(".", ","),
@@ -107,6 +112,7 @@ export function CostCalculatorPage() {
   const [manualPrinterPower, setManualPrinterPower] = useState(
     values.printerPowerOrigin === "manual",
   );
+  const [isQuotationOpen, setIsQuotationOpen] = useState(false);
   const printerVoltage = Number(values.printerVoltage) as PrinterVoltage;
   const selectedPrinterProfile = findPrinterProfile(
     values.printerModelId,
@@ -219,16 +225,26 @@ export function CostCalculatorPage() {
             <div className={styles.sectionHeading}>
               <span>01</span>
               <div>
-                <h2>Peça e material</h2>
-                <p>Informe o peso e o valor do rolo de filamento.</p>
+                <h2>Impressão e material</h2>
+                <p>
+                  Use o peso total informado pelo fatiador para toda a mesa.
+                </p>
               </div>
             </div>
             <div className={styles.grid}>
               <NumberField
                 id="weightGrams"
-                label="Peso da peça"
+                label="Peso total da impressão"
                 unit="g"
+                helpText="Considere todas as peças e suportes da mesa."
                 registration={register("weightGrams")}
+              />
+              <NumberField
+                id="piecesPerPrint"
+                label="Peças nesta impressão"
+                unit="un."
+                helpText="Quantidade de peças produzidas juntas na mesa."
+                registration={register("piecesPerPrint")}
               />
               <NumberField
                 id="filamentPricePerKg"
@@ -393,7 +409,7 @@ export function CostCalculatorPage() {
               ) : (
                 <NumberField
                   id="directLaborCost"
-                  label="Mão de obra por peça"
+                  label="Mão de obra da impressão"
                   unit="R$"
                   registration={register("directLaborCost")}
                 />
@@ -434,6 +450,7 @@ export function CostCalculatorPage() {
             <>
               <PricingSummary result={result} />
               <CostBreakdown result={result} />
+              <QuotationAction onClick={() => setIsQuotationOpen(true)} />
             </>
           ) : (
             <section className={styles.emptyResult}>
@@ -460,6 +477,12 @@ export function CostCalculatorPage() {
           />
         </aside>
       </div>
+      {result && isQuotationOpen ? (
+        <QuotationDialog
+          result={result}
+          onClose={() => setIsQuotationOpen(false)}
+        />
+      ) : null}
     </main>
   );
 }

@@ -15,6 +15,7 @@ npm run build
 Use:
 
 - peso: 100 g;
+- peças nesta impressão: 1;
 - filamento: R$ 100/kg;
 - impressão: 2 h;
 - potência: 200 W;
@@ -78,6 +79,33 @@ lucro = 7,76
 - Excluir remove somente o item escolhido.
 - A interface informa “Somente neste navegador”.
 - Indisponibilidade do IndexedDB não impede editar ou calcular.
+
+### História 6
+
+- Um cálculo válido oferece a ação “Gerar orçamento em PDF”.
+- Vendedor, cliente e descrição obrigatórios apresentam validação.
+- A quantidade usa corretamente o preço da impressão e as peças por mesa.
+- O PDF possui uma página A4, cabeçalho, datas, cliente, item, total e condições.
+- Custos internos, lucro e margem não aparecem no documento.
+- Perfil do vendedor reaparece no próximo orçamento.
+- Logo acima de 2 MB é rejeitado.
+- Pix selecionado exige chave Pix.
+- Entrada de 50% apresenta metade do total na aprovação e metade na entrega.
+- Prazo diferencia dias úteis de dias corridos.
+- Cuidados padrão aparecem somente quando selecionados.
+- Cliente, observações e logotipo não são persistidos nem enviados.
+
+### Cenário de impressão com várias peças
+
+Use uma impressão sugerida a R$ 72,00, com 8 peças por mesa, e solicite 20
+peças:
+
+- o equivalente unitário deve ser R$ 9,00;
+- o orçamento de 20 peças deve apresentar valor unitário de R$ 9,00 e total de
+  R$ 180,00;
+- uma imagem PNG ou JPEG opcional deve aparecer junto ao item do PDF;
+- alterar a quantidade de peças por impressão não deve mudar o custo nem o preço
+  da impressão completa.
 
 ## Validação do catálogo
 

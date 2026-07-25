@@ -31,7 +31,7 @@ export function CostBreakdown({ result }: CostBreakdownProps) {
     <section aria-labelledby="cost-breakdown-title" className={styles.card}>
       <div className={styles.heading}>
         <span className={styles.eyebrow}>Composição</span>
-        <h2 id="cost-breakdown-title">Custo da peça</h2>
+        <h2 id="cost-breakdown-title">Custo da impressão</h2>
       </div>
       <dl className={styles.list}>
         {rows.map((row) => (
@@ -41,7 +41,7 @@ export function CostBreakdown({ result }: CostBreakdownProps) {
           </div>
         ))}
         <div className={styles.total}>
-          <dt>Custo total</dt>
+          <dt>Custo total da mesa</dt>
           <dd>{formatCurrency(result.totalCost)}</dd>
         </div>
       </dl>

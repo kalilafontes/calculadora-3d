@@ -7,6 +7,7 @@ Entradas normalizadas usadas pelo domínio.
 | Campo                | Tipo              | Regra                              |
 | -------------------- | ----------------- | ---------------------------------- |
 | `weightGrams`        | number            | ≥ 0                                |
+| `piecesPerPrint`     | number            | inteiro de 1 a 10.000              |
 | `filamentPricePerKg` | number            | ≥ 0                                |
 | `printTimeHours`     | number            | ≥ 0                                |
 | `printerPowerWatts`  | number            | ≥ 0                                |
@@ -30,18 +31,22 @@ Entradas normalizadas usadas pelo domínio.
 
 Resultado imutável derivado de `CalculationInput`.
 
-| Campo            | Derivação                         |
-| ---------------- | --------------------------------- |
-| `filamentCost`   | peso/1000 × preço/kg              |
-| `energyCost`     | potência/1000 × horas × preço/kWh |
-| `lossBaseCost`   | filamento + energia               |
-| `lossCost`       | base × percentual de perdas       |
-| `laborCost`      | conforme modo de mão de obra      |
-| `packagingCost`  | cópia normalizada da entrada      |
-| `otherCosts`     | cópia normalizada da entrada      |
-| `totalCost`      | soma dos componentes              |
-| `suggestedPrice` | total / (1 - margem)              |
-| `profit`         | preço sugerido - total            |
+| Campo                | Derivação                                  |
+| -------------------- | ------------------------------------------ |
+| `filamentCost`       | peso/1000 × preço/kg                       |
+| `energyCost`         | potência/1000 × horas × preço/kWh          |
+| `lossBaseCost`       | filamento + energia                        |
+| `lossCost`           | base × percentual de perdas                |
+| `laborCost`          | conforme modo de mão de obra               |
+| `packagingCost`      | cópia normalizada da entrada               |
+| `otherCosts`         | cópia normalizada da entrada               |
+| `totalCost`          | soma dos componentes da impressão completa |
+| `suggestedPrice`     | total / (1 - margem), por impressão        |
+| `profit`             | preço sugerido - total, por impressão      |
+| `piecesPerPrint`     | quantidade normalizada da entrada          |
+| `unitTotalCost`      | total / peças por impressão                |
+| `unitSuggestedPrice` | preço da impressão / peças por impressão   |
+| `unitProfit`         | lucro da impressão / peças por impressão   |
 
 ## EnergyTariffCatalog
 
@@ -145,6 +150,39 @@ interface SavedCalculation {
 | `result`        | fotografia do resultado no momento do salvamento       |
 | `createdAt`     | data ISO 8601 da criação                               |
 | `updatedAt`     | data ISO 8601 usada para ordenar os registros recentes |
+
+## QuotationData
+
+```ts
+interface QuotationData {
+  seller: SellerProfile;
+  clientName: string;
+  clientContact: string;
+  projectTitle: string;
+  quantity: number;
+  unitPrice: number;
+  validityDays: number;
+  productionLeadTime: number;
+  productionLeadTimeUnit: "business-days" | "calendar-days";
+  paymentMethods: PaymentMethod[];
+  pixKey: string;
+  upfrontPercentage: number;
+  includeCareInstructions: boolean;
+  notes: string;
+  logoDataUrl?: string;
+  productImageDataUrl?: string;
+  issuedAt: Date;
+}
+```
+
+O total é `quantity × unitPrice`, usando o preço por peça derivado do cálculo.
+`SellerProfile` contém nome, e-mail, telefone e documento. Apenas esse perfil é
+persistido; dados do cliente, projeto, observações, logotipo e imagem da peça
+não são armazenados.
+
+`PaymentMethod` aceita `pix`, `cash`, `credit-card`, `debit-card` e
+`bank-transfer`. Quando Pix estiver presente, `pixKey` é obrigatória. Entrada e
+saldo são derivados do total pelo `upfrontPercentage`.
 
 ## Interfaces de fronteira
 

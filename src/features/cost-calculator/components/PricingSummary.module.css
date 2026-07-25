@@ -29,6 +29,31 @@
   border-top: 1px solid rgb(255 255 255 / 18%);
 }
 
+.unitValues {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  background: rgb(255 255 255 / 10%);
+}
+
+.unitValues div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.unitValues span,
+.unitValues small {
+  color: #f5d9e8;
+}
+
+.unitValues small {
+  margin-top: 0.2rem;
+  font-size: 0.68rem;
+}
+
 .note {
   margin: 1rem 0 0;
   color: #f5d9e8;

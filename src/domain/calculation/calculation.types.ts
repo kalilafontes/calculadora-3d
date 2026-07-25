@@ -34,6 +34,7 @@ export type LaborMode = "calculated" | "direct";
 
 export interface CalculationInput {
   weightGrams: number;
+  piecesPerPrint: number;
   filamentPricePerKg: number;
   printTimeHours: number;
   printerPowerWatts: number;
@@ -65,4 +66,8 @@ export interface CalculationResult {
   totalCost: number;
   suggestedPrice: number;
   profit: number;
+  piecesPerPrint: number;
+  unitTotalCost: number;
+  unitSuggestedPrice: number;
+  unitProfit: number;
 }

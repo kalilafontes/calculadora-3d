@@ -337,6 +337,32 @@ backend ou autenticação.
 - [x] T080 Criar favicon vetorial responsivo à resolução com a paleta da marca e
       configurar sua descoberta no documento HTML
 
+## Fase 9 — História 6: orçamento em PDF (V2.1)
+
+- [x] T081 Definir e validar `QuotationData`, `SellerProfile` e campos do
+      orçamento em `src/domain/quotation/`
+- [x] T082 Criar persistência resiliente apenas do perfil do vendedor em
+      `LocalStorageSellerProfileRepository`
+- [x] T083 Criar ação e formulário acessível de orçamento com cliente, projeto,
+      quantidade, validade, observações e logo opcional
+- [x] T084 Gerar PDF A4 local com preço unitário, total, condições e identidade
+      visual, sem custos internos, em `generateQuotationPdf.ts`
+- [x] T085 Testar validação, persistência, abertura da interface e estrutura do
+      PDF
+- [x] T086 Renderizar amostra do PDF como imagem, revisar visualmente e corrigir
+      problemas de compatibilidade
+- [x] T087 Atualizar documentação e versão do pacote para `2.1.0`
+- [x] T088 Substituir condições abertas por prazo estruturado, formas de
+      pagamento, chave Pix condicional, percentual de entrada, saldo calculado e
+      cuidados padrão selecionáveis
+- [x] T089 Tratar peso, tempo e custos como totais da impressão completa, incluir
+      peças por impressão e derivar custo, preço e lucro unitários
+- [x] T090 Apresentar o orçamento ao cliente por quantidade e preço por peça,
+      usando o valor unitário derivado da impressão completa
+- [x] T091 Atualizar PDF, interface, testes e documentação para o modelo de mesa
+      completa
+- [x] T092 Permitir imagem transitória e opcional da peça junto ao item do PDF
+
 ## Dependências entre fases
 
 ```text

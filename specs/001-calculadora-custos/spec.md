@@ -158,6 +158,47 @@ abri-lo na lista de recentes e conferir a restauração integral das entradas.
    persistência, **então** informará que os dados existem somente naquele
    navegador.
 
+---
+
+### História 6 — Gerar orçamento profissional em PDF (Prioridade P1)
+
+Como maker ou vendedor, quero transformar o preço calculado em um orçamento
+profissional para apresentar uma proposta clara ao cliente.
+
+**Teste independente**: gerar um orçamento com vendedor, cliente, projeto,
+quantidade e validade e conferir que o PDF A4 apresenta preço efetivo por peça,
+quantidade e total sem revelar custos internos ou margem.
+
+**Cenários de aceite**
+
+1. **Dado** um cálculo válido, **quando** o usuário abrir o gerador de orçamento,
+   **então** poderá preencher vendedor, cliente, projeto, quantidade, validade e
+   observações.
+2. **Dado** um logotipo PNG ou JPEG de até 2 MB, **quando** selecionado,
+   **então** será incluído no cabeçalho quando compatível.
+3. **Dado** quantidade maior que zero, **quando** o PDF for gerado, **então** o
+   total será o preço por peça multiplicado pela quantidade.
+4. **Dado** o documento do cliente, **quando** gerado, **então** não exibirá
+   custo total interno, lucro ou margem.
+5. **Dado** um perfil de vendedor preenchido, **quando** outro orçamento for
+   iniciado no mesmo navegador, **então** nome e contatos serão restaurados.
+6. **Dado** qualquer orçamento, **quando** for baixado, **então** seus dados
+   serão processados localmente sem envio para servidor.
+7. **Dado** que o vendedor informa condições comerciais, **quando** preencher o
+   orçamento, **então** escolherá prazo, meios de pagamento e entrada em campos
+   estruturados.
+8. **Dado** Pix selecionado, **quando** o orçamento for validado, **então** a
+   chave Pix será obrigatória e aparecerá no documento.
+9. **Dado** um percentual de entrada, **quando** o orçamento for gerado,
+   **então** entrada e saldo na entrega serão calculados sobre o total.
+10. **Dado** que o vendedor selecionou cuidados padrão, **quando** gerar o PDF,
+    **então** orientações de calor, limpeza e uso serão incluídas.
+11. **Dado** uma impressão com várias peças, **quando** o usuário consultar o
+    resultado, **então** verá valores da impressão completa e equivalentes por
+    peça.
+12. **Dado** uma imagem PNG ou JPEG opcional da peça, **quando** o PDF for
+    gerado, **então** ela aparecerá junto ao item sem ser armazenada.
+
 ## Casos de borda
 
 - Peso ou tempo igual a zero deve resultar em custo zero para o componente
@@ -178,14 +219,15 @@ abri-lo na lista de recentes e conferir a restauração integral das entradas.
 
 ## Requisitos funcionais
 
-- **RF-001**: o sistema deve permitir informar o peso da peça em gramas.
+- **RF-001**: o sistema deve permitir informar o peso total da impressão em
+  gramas.
 - **RF-002**: o sistema deve permitir informar o preço do filamento por
   quilograma.
 - **RF-003**: o sistema deve permitir informar o tempo de impressão.
 - **RF-004**: o sistema deve permitir informar a potência considerada da
   impressora em watts.
 - **RF-005**: o sistema deve permitir informar embalagem e outros custos como
-  valores monetários por unidade produzida.
+  valores monetários da impressão completa.
 - **RF-006**: o sistema deve permitir informar percentual de perdas e margem de
   lucro desejada.
 - **RF-007**: o sistema deve calcular custo de filamento, energia, perdas e custo
@@ -247,12 +289,40 @@ abri-lo na lista de recentes e conferir a restauração integral das entradas.
 - **RF-035**: falhas do IndexedDB não devem impedir o cálculo principal.
 - **RF-036**: a interface deve informar que os cálculos nomeados ficam somente
   no navegador atual.
+- **RF-037**: o sistema deve permitir gerar orçamento PDF a partir de um cálculo
+  válido.
+- **RF-038**: o orçamento deve conter vendedor, cliente, projeto, emissão,
+  validade, quantidade, preço unitário e total.
+- **RF-039**: o orçamento não deve expor custo, lucro ou margem ao cliente.
+- **RF-040**: o sistema deve aceitar logotipo PNG ou JPEG opcional de até 2 MB.
+- **RF-041**: o perfil do vendedor deve ser persistido localmente, sem incluir
+  dados do cliente ou logotipo.
+- **RF-042**: a geração e o download do PDF devem ocorrer somente no navegador.
+- **RF-043**: o prazo de produção deve aceitar quantidade de dias e contagem em
+  dias úteis ou corridos.
+- **RF-044**: o vendedor deve selecionar uma ou mais formas de pagamento entre
+  Pix, dinheiro, crédito, débito e transferência.
+- **RF-045**: ao selecionar Pix, a chave deve ser obrigatória.
+- **RF-046**: o sistema deve calcular valor de entrada e saldo na entrega pelo
+  percentual informado.
+- **RF-047**: o vendedor deve poder incluir orientações padrão de cuidado por
+  uma única seleção.
+- **RF-048**: o sistema deve permitir informar quantas peças existem na impressão
+  completa, usando uma unidade como padrão para dados antigos.
+- **RF-049**: custo, preço sugerido e lucro principais devem representar a
+  impressão completa; seus equivalentes por peça devem ser derivados sem
+  arredondamento intermediário.
+- **RF-050**: o orçamento deve apresentar quantidade, preço por peça e total,
+  sem expor ao cliente o planejamento das impressões.
+- **RF-051**: o sistema deve aceitar imagem PNG ou JPEG opcional da peça, de até
+  2 MB, usá-la apenas na geração atual e mostrá-la junto ao item.
 
 ## Regras de negócio e fórmulas
 
 ### Entradas normalizadas
 
 - `pesoEmGramas`
+- `pecasPorImpressao`
 - `precoFilamentoPorKg`
 - `tempoEmHoras`
 - `potenciaEmWatts`
@@ -290,7 +360,7 @@ custoPerdas =
 
 custoMaoDeObra =
   tempoMaoDeObraEmHoras × valorHoraMaoDeObra
-  // ou valor direto por peça, conforme o modo selecionado
+  // ou valor direto da impressão, conforme o modo selecionado
 
 custoTotal =
   custoFilamento
@@ -305,6 +375,15 @@ precoSugerido =
 
 lucro =
   precoSugerido - custoTotal
+
+custoUnitario =
+  custoTotal / pecasPorImpressao
+
+precoUnitario =
+  precoSugerido / pecasPorImpressao
+
+totalOrcamento =
+  quantidadeSolicitada × precoUnitario
 ```
 
 ### Premissas adotadas
@@ -314,8 +393,10 @@ lucro =
   em preço de R$ 100,00.
 - Perdas representam repetição ou descarte da etapa de impressão e incidem sobre
   filamento e energia, não sobre embalagem, mão de obra ou outros custos.
+- Peso, tempo, embalagem, mão de obra e demais custos representam uma impressão
+  completa. A quantidade de peças na mesa apenas deriva os valores unitários.
 - Mão de obra usa por padrão tempo de trabalho × valor por hora, com alternativa
-  de valor direto por peça.
+  de valor direto para a impressão.
 - Taxas de marketplace, impostos, depreciação e manutenção não fazem parte do
   MVP; podem futuramente entrar em “outros custos” até ganharem regras próprias.
 - O valor por UF é uma estimativa para facilitar o preenchimento, não uma

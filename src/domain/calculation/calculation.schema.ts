@@ -29,6 +29,14 @@ const percentage = (label: string, allowOneHundred: boolean) =>
 export const calculationSchema = z
   .object({
     weightGrams: requiredNumber("Peso"),
+    piecesPerPrint: z.preprocess(
+      (value) => (value === undefined ? 1 : parsePtBrNumber(value)),
+      z
+        .number({ error: "Quantidade de peças deve ser um número." })
+        .int("Quantidade de peças deve ser um número inteiro.")
+        .min(1, "A impressão deve produzir pelo menos uma peça.")
+        .max(10_000, "A impressão deve produzir no máximo 10.000 peças."),
+    ),
     filamentPricePerKg: requiredNumber("Preço do filamento"),
     printTimeHours: requiredNumber("Tempo de impressão"),
     printerPowerWatts: requiredNumber("Potência"),

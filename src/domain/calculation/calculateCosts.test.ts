@@ -4,6 +4,7 @@ import type { CalculationInput } from "./calculation.types";
 
 const baseInput: CalculationInput = {
   weightGrams: 100,
+  piecesPerPrint: 1,
   filamentPricePerKg: 100,
   printTimeHours: 2,
   printerPowerWatts: 200,
@@ -44,6 +45,15 @@ describe("calculateCosts", () => {
     });
 
     expect(result.laborCost).toBe(30);
+  });
+
+  it("deriva custo e preço por peça a partir da impressão completa", () => {
+    const result = calculateCosts({ ...baseInput, piecesPerPrint: 8 });
+
+    expect(result.totalCost).toBeCloseTo(31.04);
+    expect(result.unitTotalCost).toBeCloseTo(3.88);
+    expect(result.unitSuggestedPrice).toBeCloseTo(4.85);
+    expect(result.unitProfit).toBeCloseTo(0.97);
   });
 
   it("aceita zeros e margem zero", () => {
