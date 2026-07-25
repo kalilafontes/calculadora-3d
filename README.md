@@ -8,7 +8,7 @@ energia, tempo de impressão, mão de obra, embalagem, perdas e outros custos. O
 resultado apresenta a composição do custo, o lucro estimado e um preço sugerido
 com base na margem desejada.
 
-## O que a V1 oferece
+## O que a V2 oferece
 
 - cálculo de filamento, energia, perdas, mão de obra e custos adicionais;
 - preço sugerido usando margem bruta e lucro estimado;
@@ -17,7 +17,10 @@ com base na margem desejada.
 - catálogo inicial das impressoras Bambu Lab A1 e A1 mini;
 - potência oficial por tensão de 127 V ou 220 V, também editável;
 - resultados atualizados em tempo real;
-- persistência do último cálculo no navegador;
+- restauração automática do último cálculo no navegador;
+- cálculos nomeados salvos em IndexedDB;
+- lista dos cinco cálculos recentes, com reabertura e exclusão;
+- retorno suave ao topo ao reabrir um cálculo salvo;
 - tema claro e escuro;
 - interface responsiva para celular e desktop.
 
@@ -38,7 +41,7 @@ Constituição → Especificação → Pesquisa → Plano → Contratos → Tare
 
 Essa abordagem ajudou a:
 
-- definir claramente o escopo da V1;
+- definir claramente o escopo de cada versão;
 - manter regras de cálculo separadas da interface;
 - registrar decisões sobre margem, perdas e estimativas de energia;
 - transformar requisitos em tarefas rastreáveis;
@@ -87,8 +90,9 @@ conhecer as fontes, o método e o processo de atualização.
 - CSS Modules
 - Vitest e Testing Library
 - Local Storage
+- IndexedDB
 
-O projeto é inicialmente frontend-only. As regras de negócio são funções puras
+O projeto permanece frontend-only. As regras de negócio são funções puras
 e permanecem desacopladas dos componentes e dos adaptadores de infraestrutura.
 
 ## Executando localmente
@@ -128,9 +132,16 @@ scripts/energy-data/ # geração e validação do catálogo ANEEL
 specs/               # artefatos do desenvolvimento orientado por especificação
 ```
 
+## Persistência local
+
+O rascunho mais recente continua salvo automaticamente no Local Storage. Os
+cálculos nomeados usam IndexedDB e guardam título, entradas, resultado e datas
+de criação e atualização. Os dados não saem do navegador e podem ser removidos
+ao limpar os dados do site; não há sincronização entre dispositivos.
+
 ## Evolução planejada
 
 A calculadora é o primeiro módulo de uma plataforma de gestão para pequenos
-negócios de impressão 3D. Possíveis evoluções incluem cadastro de impressoras e
-materiais, estoque, clientes, histórico de cálculos, produtos, pedidos,
-orçamentos e relatórios.
+negócios de impressão 3D. Possíveis evoluções incluem renomear e duplicar
+cálculos, exportar backups, cadastro de impressoras e materiais, estoque,
+clientes, produtos, pedidos, orçamentos e relatórios.

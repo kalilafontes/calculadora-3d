@@ -277,7 +277,7 @@ cálculo.
       `index.html`
 - [x] T061 [P] Documentar instalação, scripts, arquitetura e atualização do
       catálogo em `README.md`
-- [ ] T062 Revisar cada requisito RF-001 a RF-029 e RNF-001 a RNF-008 contra a
+- [ ] T062 Revisar cada requisito RF-001 a RF-036 e RNF-001 a RNF-009 contra a
       implementação, registrando cobertura em
       `specs/001-calculadora-custos/checklists/requirements.md`
 - [ ] T063 Executar a validação estrutural do catálogo e conferir manualmente
@@ -304,6 +304,34 @@ cálculo.
       `src/infrastructure/printers/` e
       `src/features/cost-calculator/components/PrinterSelect.tsx`
 
+## Fase 8 — História 5: cálculos nomeados locais (V2)
+
+**Objetivo**: permitir salvar, encontrar e retomar cálculos importantes sem
+backend ou autenticação.
+
+- [x] T071 [US5] Definir `SavedCalculation` e
+      `SavedCalculationRepository` em
+      `src/infrastructure/storage/SavedCalculationRepository.ts`
+- [x] T072 [US5] Implementar banco IndexedDB `calculadora3d`, object store
+      `saved-calculations`, índice `updatedAt` e operações de listar, salvar e
+      excluir em
+      `src/infrastructure/storage/IndexedDbSavedCalculationRepository.ts`
+- [x] T073 [US5] Implementar hook de cálculos salvos com limite de cinco
+      recentes, feedback e fallback não bloqueante em
+      `src/features/cost-calculator/hooks/useSavedCalculations.ts`
+- [x] T074 [US5] Criar formulário acessível para salvar um cálculo válido com
+      título em `src/features/cost-calculator/components/SaveCalculation.tsx`
+- [x] T075 [US5] Criar lista de recentes com título, data, abertura e exclusão
+      individual em
+      `src/features/cost-calculator/components/SavedCalculations.tsx`
+- [x] T076 [US5] Integrar persistência nomeada à calculadora, restaurar todas as
+      entradas e rolar suavemente ao topo após abertura em
+      `src/features/cost-calculator/CostCalculatorPage.tsx`
+- [x] T077 Atualizar README, especificação, pesquisa, plano, contrato, modelo,
+      tarefas e quickstart para a V2
+- [x] T078 Atualizar a versão do pacote para `2.0.0` e executar formatação, lint,
+      typecheck, testes, build e validação do catálogo
+
 ## Dependências entre fases
 
 ```text
@@ -317,6 +345,8 @@ Fase 3: US1 — custo real
   └──→ Fase 6: US4 — persistência
              ↓
 Fase 7: Validação transversal
+             ↓
+Fase 8: US5 — cálculos nomeados (V2)
 ```
 
 - Fases 4, 5 e 6 dependem da história 1, mas podem avançar em paralelo entre si.
@@ -325,6 +355,8 @@ Fase 7: Validação transversal
 - A história 1 é o primeiro incremento demonstrável.
 - A história 2 completa o valor comercial central do MVP.
 - Histórias 3 e 4 não devem alterar fórmulas do domínio.
+- A história 5 depende das entradas e resultados estáveis das histórias 1 e 2,
+  mas mantém falhas de armazenamento isoladas do cálculo.
 
 ## Oportunidades de paralelismo
 
@@ -359,6 +391,10 @@ Adicionar fase 4 e demonstrar custo, preço sugerido e lucro.
 ### Incremento 3 — MVP completo
 
 Adicionar fases 5–7, persistência, acessibilidade e verificações finais.
+
+### Incremento 4 — V2 local-first
+
+Adicionar fase 8, com cálculos nomeados em IndexedDB e acesso aos recentes.
 
 ## Definição de pronto por tarefa
 

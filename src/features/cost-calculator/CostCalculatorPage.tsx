@@ -8,6 +8,7 @@ import type {
   LaborMode,
 } from "../../domain/calculation/calculation.types";
 import { LocalStorageCalculationDraftRepository } from "../../infrastructure/storage/LocalStorageCalculationDraftRepository";
+import { IndexedDbSavedCalculationRepository } from "../../infrastructure/storage/IndexedDbSavedCalculationRepository";
 import { ThemeToggle } from "../../shared/theme/ThemeToggle";
 import {
   findPrinterProfile,
@@ -22,8 +23,11 @@ import { PricingSummary } from "./components/PricingSummary";
 import { PrinterPowerNotice } from "./components/PrinterPowerNotice";
 import { PrinterSelect } from "./components/PrinterSelect";
 import { StateSelect } from "./components/StateSelect";
+import { SaveCalculation } from "./components/SaveCalculation";
+import { SavedCalculations } from "./components/SavedCalculations";
 import { useCalculationDraft } from "./hooks/useCalculationDraft";
 import { useEnergyEstimate } from "./hooks/useEnergyEstimate";
+import { useSavedCalculations } from "./hooks/useSavedCalculations";
 import styles from "./CostCalculatorPage.module.css";
 
 export interface FormValues {
@@ -152,6 +156,10 @@ export function CostCalculatorPage() {
     () => new LocalStorageCalculationDraftRepository(),
     [],
   );
+  const savedCalculationRepository = useMemo(
+    () => new IndexedDbSavedCalculationRepository(),
+    [],
+  );
   const restoreDraft = useCallback(
     (input: CalculationInput) => {
       setManualEnergyOverride(input.energyPriceOrigin === "manual");
@@ -165,11 +173,21 @@ export function CostCalculatorPage() {
     setManualPrinterPower(true);
     reset(defaults);
   }, [reset]);
+  const openSavedCalculation = useCallback(
+    (input: CalculationInput) => {
+      restoreDraft(input);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+    [restoreDraft],
+  );
   const { clear } = useCalculationDraft({
     input: parsed.success ? parsed.data : null,
     repository: draftRepository,
     restore: restoreDraft,
     reset: resetForm,
+  });
+  const { recent, status, save, remove } = useSavedCalculations({
+    repository: savedCalculationRepository,
   });
 
   return (
@@ -426,6 +444,20 @@ export function CostCalculatorPage() {
               </p>
             </section>
           )}
+          <SaveCalculation
+            disabled={!parsed.success || !result}
+            status={status}
+            onSave={(title) =>
+              parsed.success && result
+                ? save(title, parsed.data, result)
+                : Promise.resolve(false)
+            }
+          />
+          <SavedCalculations
+            recent={recent}
+            onOpen={(calculation) => openSavedCalculation(calculation.input)}
+            onDelete={(id) => void remove(id)}
+          />
         </aside>
       </div>
     </main>

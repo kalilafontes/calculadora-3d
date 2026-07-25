@@ -68,6 +68,17 @@ lucro = 7,76
 - JSON corrompido não quebra a aplicação.
 - Limpar redefine o formulário e remove apenas a chave do produto.
 
+### História 5
+
+- Salvar exige cálculo válido e título não vazio.
+- Após salvar, o item aparece entre os recentes com título e data.
+- Recarregar mantém o item salvo no mesmo navegador.
+- Abrir restaura todas as entradas e rola suavemente até o topo.
+- Apenas os cinco itens mais recentemente atualizados são exibidos.
+- Excluir remove somente o item escolhido.
+- A interface informa “Somente neste navegador”.
+- Indisponibilidade do IndexedDB não impede editar ou calcular.
+
 ## Validação do catálogo
 
 - Executar o gerador duas vezes com as mesmas entradas e confirmar saída idêntica.
@@ -84,7 +95,7 @@ lucro = 7,76
 
 ## Condição de aceite
 
-A entrega pode avançar quando typecheck, testes e build passarem, os quatro
+A entrega pode avançar quando typecheck, testes e build passarem, os cinco
 cenários de história forem demonstráveis e não houver violação da constituição.
 
 CS-001 é verificado após a primeira publicação conforme

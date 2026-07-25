@@ -122,6 +122,30 @@ interface CalculationDraft {
 
 O draft só é aceito após validação integral. `CalculationResult` não é salvo.
 
+## SavedCalculation
+
+```ts
+interface SavedCalculation {
+  id: string;
+  schemaVersion: 1;
+  title: string;
+  input: CalculationInput;
+  result: CalculationResult;
+  createdAt: string;
+  updatedAt: string;
+}
+```
+
+| Campo           | Regra                                                  |
+| --------------- | ------------------------------------------------------ |
+| `id`            | UUID gerado no navegador                               |
+| `schemaVersion` | versão `1` do registro                                 |
+| `title`         | texto não vazio após remoção de espaços, até 80 chars  |
+| `input`         | entradas normalizadas restauráveis                     |
+| `result`        | fotografia do resultado no momento do salvamento       |
+| `createdAt`     | data ISO 8601 da criação                               |
+| `updatedAt`     | data ISO 8601 usada para ordenar os registros recentes |
+
 ## Interfaces de fronteira
 
 ```ts
@@ -138,6 +162,12 @@ interface CalculationDraftRepository {
   load(): Promise<CalculationDraft | null>;
   save(draft: CalculationDraft): Promise<void>;
   clear(): Promise<void>;
+}
+
+interface SavedCalculationRepository {
+  listRecent(limit?: number): Promise<SavedCalculation[]>;
+  save(calculation: SavedCalculation): Promise<void>;
+  delete(id: string): Promise<void>;
 }
 ```
 
@@ -188,4 +218,14 @@ Preço do kWh editado
 Limpar
   → draft removido
   → formulário volta aos valores iniciais seguros
+
+Salvar cálculo nomeado
+  → UUID e datas gerados
+  → entradas e resultado persistidos no IndexedDB
+  → lista de recentes recarregada
+
+Abrir cálculo recente
+  → entradas restauradas no formulário
+  → resultados recalculados
+  → página retorna suavemente ao topo
 ```

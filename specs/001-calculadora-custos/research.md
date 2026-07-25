@@ -149,3 +149,19 @@ manutenção.
 **Motivo**: exige participantes representativos e ambiente utilizável, mas não
 deve impedir a primeira publicação técnica. A entrega deve incluir protocolo,
 amostra mínima e forma de registro antes da divulgação ampla.
+
+## 14. Histórico local da V2
+
+**Decisão**: manter o rascunho automático no Local Storage e usar IndexedDB para
+cálculos nomeados.
+
+**Motivo**: cálculos nomeados formam uma coleção estruturada e potencialmente
+maior, enquanto o rascunho continua sendo um único valor simples. O IndexedDB
+permite índice por atualização e operações assíncronas sem introduzir backend.
+
+**Escopo da V2**: salvar com título, listar os cinco mais recentes, restaurar
+entradas, excluir e retornar suavemente ao topo ao abrir. Renomear, duplicar,
+exportar e sincronizar ficam para versões futuras.
+
+**Limitação comunicada**: os dados pertencem à origem e ao navegador atuais e
+podem desaparecer se o usuário limpar os dados do site.

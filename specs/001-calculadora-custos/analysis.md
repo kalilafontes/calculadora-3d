@@ -1,6 +1,6 @@
 # Análise cruzada dos artefatos
 
-**Data**: 2026-07-24  
+**Data**: 2026-07-25
 **Escopo**: constituição, spec, plano, pesquisa, modelo de dados, contratos,
 quickstart e tarefas  
 **Método**: revisão de consistência, rastreabilidade, cobertura, ambiguidades,
@@ -9,9 +9,10 @@ conformidade constitucional e prontidão para implementação
 
 ## Resumo executivo
 
-Os artefatos estão bem alinhados quanto ao objetivo do MVP, fórmulas principais,
+Os artefatos estão alinhados quanto ao objetivo do produto, fórmulas principais,
 separação entre domínio e interface, persistência local, acessibilidade e evolução
-arquitetural. As quatro histórias possuem tarefas e testes independentes.
+arquitetural. A V2 acrescenta uma quinta história para cálculos nomeados em
+IndexedDB, sem alterar o domínio financeiro nem introduzir backend.
 
 Foram encontrados:
 
@@ -35,11 +36,12 @@ validação pós-deploy. Não há bloqueio documental para iniciar a implementa�
 | US2 — preço e lucro     | Sim  | Sim   | T037–T042      | Coberta                          |
 | US3 — entradas e acesso | Sim  | Sim   | T043–T051      | Coberta                          |
 | US4 — persistência      | Sim  | Sim   | T052–T059      | Coberta                          |
+| US5 — cálculos nomeados | Sim  | Sim   | T071–T078      | Implementada na V2               |
 
 ### Requisitos
 
 - RF-001 a RF-025 possuem cobertura de implementação nas fases 2–6.
-- RNF-001 a RNF-008 possuem cobertura parcial ou total nas fases 5 e 7.
+- RNF-001 a RNF-009 possuem cobertura parcial ou total nas fases 5, 7 e 8.
 - CS-002 a CS-005 possuem atividades de verificação.
 - CS-001 possui protocolo pós-deploy previsto em T069.
 
@@ -253,18 +255,18 @@ README; não exige alteração da spec.
 
 ## Matriz resumida de rastreabilidade
 
-| Área                       | Requisitos              | Plano/contrato           | Tarefas                           | Avaliação |
-| -------------------------- | ----------------------- | ------------------------ | --------------------------------- | --------- |
-| Material e impressão       | RF-001–RF-004           | domínio/cálculo          | T009–T021, T032                   | Completa  |
-| Custos adicionais e perdas | RF-005–RF-007, RF-024   | domínio/cálculo          | T018, T021, T032                  | Completa  |
-| Preço e lucro              | RF-008–RF-009           | domínio/UI               | T037–T042                         | Completa  |
-| Apresentação e validação   | RF-010–RF-012           | feature/acesso           | T027, T030, T043–T051             | Completa  |
-| Persistência               | RF-013–RF-014           | contrato de persistência | T052–T059                         | Completa  |
-| Responsividade/acesso      | RF-015, RNF-001–RNF-004 | CSS/HTML nativo          | T043–T051, T065                   | Completa  |
-| Energia por UF             | RF-016–RF-021, RF-025   | catálogo/repositório     | T019–T036, T068                   | Completa  |
-| Distribuidora              | RF-022–RF-023           | catálogo/repositório     | T020, T023, T026, T029–T031, T068 | Completa  |
-| Robustez e privacidade     | RNF-005–RNF-007         | adaptadores locais       | T044, T049, T052–T059             | Completa  |
-| Rastreabilidade            | RNF-008                 | contrato/catálogo        | T019, T023–T025, T034, T063, T068 | Completa  |
+| Área                       | Requisitos                | Plano/contrato           | Tarefas                           | Avaliação |
+| -------------------------- | ------------------------- | ------------------------ | --------------------------------- | --------- |
+| Material e impressão       | RF-001–RF-004             | domínio/cálculo          | T009–T021, T032                   | Completa  |
+| Custos adicionais e perdas | RF-005–RF-007, RF-024     | domínio/cálculo          | T018, T021, T032                  | Completa  |
+| Preço e lucro              | RF-008–RF-009             | domínio/UI               | T037–T042                         | Completa  |
+| Apresentação e validação   | RF-010–RF-012             | feature/acesso           | T027, T030, T043–T051             | Completa  |
+| Persistência               | RF-013–RF-014, RF-030–036 | contrato de persistência | T052–T059, T071–T078              | Completa  |
+| Responsividade/acesso      | RF-015, RNF-001–RNF-004   | CSS/HTML nativo          | T043–T051, T065                   | Completa  |
+| Energia por UF             | RF-016–RF-021, RF-025     | catálogo/repositório     | T019–T036, T068                   | Completa  |
+| Distribuidora              | RF-022–RF-023             | catálogo/repositório     | T020, T023, T026, T029–T031, T068 | Completa  |
+| Robustez e privacidade     | RNF-005–RNF-007           | adaptadores locais       | T044, T049, T052–T059             | Completa  |
+| Rastreabilidade            | RNF-008                   | contrato/catálogo        | T019, T023–T025, T034, T063, T068 | Completa  |
 
 ## Duplicação e complexidade
 

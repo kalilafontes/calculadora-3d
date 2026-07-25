@@ -2,14 +2,15 @@
 
 **Branch**: `001-calculadora-custos`  
 **Spec**: [spec.md](spec.md)  
-**Data**: 2026-07-24
+**Data**: 2026-07-25
 
 ## Resumo
 
 Construir uma aplicação frontend responsiva que calcula custos e preço sugerido
 de uma impressão 3D em tempo real. O domínio será isolado da interface; entradas
 serão validadas com Zod e controladas com React Hook Form. Preferências e último
-cálculo válido serão persistidos por um repositório de Local Storage. Estimativas
+cálculo válido serão persistidos por um repositório de Local Storage. Cálculos
+nomeados serão persistidos em IndexedDB e exibidos entre os recentes. Estimativas
 de energia por UF e distribuidora serão consumidas de um catálogo JSON local,
 versionado e rastreável até dados oficiais da ANEEL.
 
@@ -26,7 +27,7 @@ versionado e rastreável até dados oficiais da ANEEL.
 | Cobertura                  | Vitest Coverage com 100% para fórmulas e limites do domínio   |
 | Estilos                    | CSS Modules com tokens CSS globais mínimos                    |
 | Formatação                 | Prettier; ESLint permanece responsável por qualidade estática |
-| Persistência               | Local Storage atrás de `CalculationDraftRepository`           |
+| Persistência               | Local Storage para draft e IndexedDB para cálculos nomeados   |
 | Dados de energia           | JSON estático atrás de `EnergyTariffRepository`               |
 | Classe de energia estimada | B1 residencial, modalidade convencional                       |
 | Backend/autenticação       | Não existem no MVP                                            |
@@ -70,7 +71,8 @@ src/
 │   │   ├── LocalEnergyTariffRepository.ts
 │   │   └── energy-tariffs.json
 │   └── storage/
-│       └── LocalStorageCalculationDraftRepository.ts
+│       ├── LocalStorageCalculationDraftRepository.ts
+│       └── IndexedDbSavedCalculationRepository.ts
 ├── shared/
 │   ├── components/
 │   ├── formatting/
@@ -106,9 +108,12 @@ Resumo de custos
 
 UF/distribuidora → EnergyTariffRepository → catálogo JSON local → preço sugerido
 Formulário válido → CalculationDraftRepository → Local Storage
+Salvar com título → SavedCalculationRepository → IndexedDB → Recentes
 ```
 
-- O resultado nunca será persistido como fonte de verdade; será recalculado.
+- No rascunho, o resultado nunca será persistido como fonte de verdade.
+- Um cálculo nomeado guarda o resultado como fotografia, mas ao ser aberto suas
+  entradas voltam ao formulário e o resultado corrente é recalculado.
 - Trocar UF redefine distribuidora e aplica a média estadual.
 - Selecionar distribuidora substitui a média estadual.
 - Editar o preço do kWh muda sua origem para `manual`; alterações posteriores de
@@ -156,12 +161,18 @@ Formulário válido → CalculationDraftRepository → Local Storage
 
 ## Estratégia de persistência
 
-- Chave: `calculadora3d:draft:v1`.
-- Payload com `schemaVersion: 1`, entradas e `savedAt`.
+- Rascunho: chave `calculadora3d:draft:v1`, com `schemaVersion: 1`, entradas e
+  `savedAt`.
 - Leitura sempre passa por Zod; conteúdo inválido ou desconhecido é ignorado.
 - Escrita acontece somente para um formulário válido, com debounce curto.
 - Limpar remove apenas a chave pertencente à aplicação.
-- Exceções de quota, privacidade ou acesso não interrompem o cálculo.
+- Cálculos nomeados: banco IndexedDB `calculadora3d`, store
+  `saved-calculations`, chave `id` e índice `updatedAt`.
+- Cada registro contém título, entradas, resultado, versão e datas ISO.
+- A interface lista os cinco registros mais recentes, permite restaurar e
+  excluir; ao restaurar, conduz a página suavemente ao topo.
+- Exceções de quota, privacidade ou acesso em qualquer mecanismo não interrompem
+  o cálculo.
 
 ## Estratégia de testes
 
@@ -209,7 +220,8 @@ e verificação de desempenho percebido.
 | Distribuidora atuar em mais de uma UF           | cadastro separado e estimativa específica por par UF/distribuidora |
 | Dados ANEEL incompletos/defasados               | competência visível, fallback estadual/manual                      |
 | Fórmula de margem confundida com markup         | ajuda contextual e exemplo de R$ 80 → R$ 100                       |
-| Local Storage corrompido                        | validação versionada e fallback sem bloqueio                       |
+| Armazenamento local indisponível                | fallback sem bloqueio e feedback na interface                      |
+| Usuário presumir sincronização                  | aviso “Somente neste navegador”                                    |
 | Excesso de campos no celular                    | agrupamento progressivo sem esconder resultados                    |
 
 ## Critérios de saída do planejamento

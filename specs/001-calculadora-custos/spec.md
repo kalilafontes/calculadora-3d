@@ -2,7 +2,7 @@
 
 **Branch sugerida**: `001-calculadora-custos`  
 **Criada em**: 2026-07-24  
-**Status**: Especificação validada para planejamento  
+**Status**: V2 implementada
 **Entrada original**: Criar o MVP de uma plataforma web que calcule o custo real
 e sugira o preço de venda de peças impressas em 3D.
 
@@ -123,6 +123,36 @@ restauração; depois limpar os dados e verificar o estado inicial.
    aplicação iniciar, **então** a calculadora continuará utilizável com valores
    iniciais seguros.
 
+---
+
+### História 5 — Salvar e reabrir cálculos nomeados (Prioridade P2)
+
+Como usuário recorrente, quero nomear cálculos importantes e acessá-los entre os
+recentes para retomar orçamentos sem redigitar os dados.
+
+**Por que é P2**: transforma a persistência automática em um histórico local
+intencional, sem exigir conta, backend ou banco remoto.
+
+**Teste independente**: salvar um cálculo válido com título, recarregar a página,
+abri-lo na lista de recentes e conferir a restauração integral das entradas.
+
+**Cenários de aceite**
+
+1. **Dado** um cálculo válido e um título não vazio, **quando** o usuário salvar,
+   **então** entradas, resultado e metadados serão armazenados no IndexedDB.
+2. **Dado** que existem cálculos salvos, **quando** a aplicação carregar,
+   **então** os cinco mais recentemente atualizados serão exibidos.
+3. **Dado** um cálculo na lista de recentes, **quando** o usuário o selecionar,
+   **então** suas entradas serão restauradas e a página retornará suavemente ao
+   topo para tornar a mudança perceptível.
+4. **Dado** um cálculo salvo, **quando** o usuário escolher excluí-lo, **então**
+   somente esse registro será removido.
+5. **Dado** IndexedDB indisponível, **quando** listar, salvar ou excluir falhar,
+   **então** a calculadora continuará utilizável e apresentará feedback.
+6. **Dado** o armazenamento local, **quando** a interface explicar a
+   persistência, **então** informará que os dados existem somente naquele
+   navegador.
+
 ## Casos de borda
 
 - Peso ou tempo igual a zero deve resultar em custo zero para o componente
@@ -135,6 +165,9 @@ restauração; depois limpar os dados e verificar o estado inicial.
   infinito ou uma interface ilegível.
 - Uma versão antiga ou inválida dos dados locais deve ser ignorada de forma
   segura.
+- Título vazio ou composto apenas por espaços não pode ser salvo.
+- A lista de recentes deve ser ordenada por `updatedAt` decrescente e limitada a
+  cinco registros.
 - Arredondamento visual não deve ser reutilizado em etapas intermediárias do
   cálculo.
 
@@ -198,6 +231,17 @@ restauração; depois limpar os dados e verificar o estado inicial.
   tensão.
 - **RF-029**: a interface deve identificar potência máxima como estimativa
   conservadora, diferenciá-la de consumo médio e apresentar a fonte oficial.
+- **RF-030**: o sistema deve permitir salvar um cálculo válido com título.
+- **RF-031**: cada cálculo nomeado deve persistir entradas, resultado, versão do
+  formato e datas de criação e atualização no IndexedDB.
+- **RF-032**: o sistema deve apresentar os cinco cálculos salvos atualizados mais
+  recentemente.
+- **RF-033**: selecionar um cálculo recente deve restaurar integralmente suas
+  entradas e conduzir a página suavemente ao topo.
+- **RF-034**: o sistema deve permitir excluir individualmente um cálculo salvo.
+- **RF-035**: falhas do IndexedDB não devem impedir o cálculo principal.
+- **RF-036**: a interface deve informar que os cálculos nomeados ficam somente
+  no navegador atual.
 
 ## Regras de negócio e fórmulas
 
@@ -335,8 +379,10 @@ formato para permitir migração futura dos dados locais.
 
 ### Resultado do cálculo
 
-Objeto derivado e não persistido como fonte de verdade, contendo cada componente
-de custo, custo total, lucro e preço sugerido.
+Objeto derivado contendo cada componente de custo, custo total, lucro e preço
+sugerido. No rascunho automático ele não é persistido; em um cálculo nomeado é
+guardado como fotografia do momento, enquanto as entradas permanecem disponíveis
+para restauração e novo cálculo.
 
 ## Requisitos não funcionais
 
@@ -355,6 +401,8 @@ de custo, custo total, lucro e preço sugerido.
 - **RNF-007 — Privacidade**: nenhum dado informado deve sair do navegador no MVP.
 - **RNF-008 — Rastreabilidade**: todo valor sugerido de energia deve ser
   rastreável até a fonte, competência e método de agregação usados.
+- **RNF-009 — Isolamento local**: cálculos nomeados não devem exigir rede, conta
+  ou servidor e devem permanecer restritos à origem atual do navegador.
 
 ## Critérios mensuráveis de sucesso
 
@@ -369,6 +417,8 @@ de custo, custo total, lucro e preço sugerido.
   320 px e apenas com teclado.
 - **CS-005**: recarregar a página no mesmo navegador restaura 100% das entradas
   válidas do último cálculo.
+- **CS-006**: salvar, listar, reabrir e excluir um cálculo nomeado funciona no
+  mesmo navegador sem comunicação externa.
 
 ## Fora do escopo do MVP
 
@@ -377,7 +427,7 @@ de custo, custo total, lucro e preço sugerido.
 - backend, API ou banco de dados remoto;
 - cadastros de impressoras, materiais, filamentos, clientes ou produtos;
 - estoque, pedidos, orçamentos, propostas e relatórios;
-- histórico de múltiplos cálculos;
+- sincronização ou compartilhamento do histórico local;
 - taxas específicas de marketplaces e impostos fora dos que já estejam
   incorporados na estimativa oficial faturada de energia;
 - dashboard e controle financeiro;
@@ -386,8 +436,8 @@ de custo, custo total, lucro e preço sugerido.
 ## Dependências
 
 - Navegador moderno com JavaScript habilitado.
-- Local Storage apenas para a conveniência de restauração; o cálculo não pode
-  depender de sua disponibilidade.
+- Local Storage para restauração automática e IndexedDB para cálculos nomeados;
+  o cálculo não pode depender da disponibilidade de nenhum dos dois.
 
 ## Decisões de esclarecimento
 
