@@ -1,9 +1,9 @@
-# Calculadora3D
+# Quanto Cobrar 3D
 
 Aplicação web para ajudar makers e pequenos negócios de impressão 3D a
 descobrir o custo real de uma peça e definir um preço de venda sustentável.
 
-Em vez de considerar somente o filamento, a Calculadora3D reúne material,
+Em vez de considerar somente o filamento, o Quanto Cobrar 3D reúne material,
 energia, tempo de impressão, mão de obra, embalagem, perdas e outros custos. O
 resultado apresenta a composição do custo, o lucro estimado e um preço sugerido
 com base na margem desejada.
@@ -51,7 +51,7 @@ Essa abordagem ajudou a:
 ### Artefatos do SDD
 
 - [Constituição do projeto](.specify/memory/constitution.md)
-- [Especificação da Calculadora3D](specs/001-calculadora-custos/spec.md)
+- [Especificação do Quanto Cobrar 3D](specs/001-calculadora-custos/spec.md)
 - [Pesquisa e decisões](specs/001-calculadora-custos/research.md)
 - [Plano técnico](specs/001-calculadora-custos/plan.md)
 - [Modelo de dados](specs/001-calculadora-custos/data-model.md)
@@ -138,6 +138,13 @@ O rascunho mais recente continua salvo automaticamente no Local Storage. Os
 cálculos nomeados usam IndexedDB e guardam título, entradas, resultado e datas
 de criação e atualização. Os dados não saem do navegador e podem ser removidos
 ao limpar os dados do site; não há sincronização entre dispositivos.
+
+## Marca e domínio
+
+O produto usa a marca **Quanto Cobrar 3D** e será publicado em
+`quantocobrar3d.com`. As chaves técnicas legadas `calculadora3d:*` e o banco
+IndexedDB `calculadora3d` são preservados para manter compatibilidade com os
+rascunhos, temas e cálculos já salvos pelos usuários.
 
 ## Evolução planejada
 

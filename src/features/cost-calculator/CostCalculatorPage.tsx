@@ -195,13 +195,13 @@ export function CostCalculatorPage() {
       <header className={styles.hero}>
         <div>
           <div className={styles.heroTop}>
-            <span className={styles.badge}>Calculadora3D</span>
+            <span className={styles.badge}>Quanto Cobrar 3D</span>
             <ThemeToggle />
           </div>
-          <h1>Preço justo começa pelo custo real.</h1>
+          <h1>Quanto cobrar pela sua impressão 3D?</h1>
           <p>
-            Descubra quanto sua impressão realmente custa e chegue a um preço de
-            venda sustentável, sem planilhas complicadas.
+            Calcule material, energia, mão de obra e margem para chegar a um
+            preço de venda sustentável, sem planilhas complicadas.
           </p>
         </div>
         <div className={styles.heroMetric} aria-label="Atualização automática">

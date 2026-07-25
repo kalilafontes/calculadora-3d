@@ -165,3 +165,15 @@ exportar e sincronizar ficam para versões futuras.
 
 **Limitação comunicada**: os dados pertencem à origem e ao navegador atuais e
 podem desaparecer se o usuário limpar os dados do site.
+
+## 15. Marca e domínio
+
+**Decisão**: apresentar o produto como **Quanto Cobrar 3D**, no domínio
+`quantocobrar3d.com`, e usar “Quanto cobrar pela sua impressão 3D?” como título
+principal.
+
+**Motivo**: o nome comunica diretamente a decisão que a ferramenta ajuda o
+usuário a tomar e coincide com o endereço público.
+
+**Compatibilidade**: nomes internos de Local Storage e IndexedDB permanecem como
+`calculadora3d` para que a mudança de identidade não apague dados existentes.

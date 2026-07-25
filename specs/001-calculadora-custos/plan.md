@@ -32,6 +32,7 @@ versionado e rastreável até dados oficiais da ANEEL.
 | Classe de energia estimada | B1 residencial, modalidade convencional                       |
 | Backend/autenticação       | Não existem no MVP                                            |
 | Idioma/moeda               | pt-BR e BRL                                                   |
+| Marca e domínio            | Quanto Cobrar 3D; `quantocobrar3d.com`                        |
 | Navegadores                | versões modernas com suporte a módulos ES                     |
 
 ## Verificação da constituição

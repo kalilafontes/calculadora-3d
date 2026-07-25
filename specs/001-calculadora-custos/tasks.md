@@ -331,6 +331,11 @@ backend ou autenticação.
       tarefas e quickstart para a V2
 - [x] T078 Atualizar a versão do pacote para `2.0.0` e executar formatação, lint,
       typecheck, testes, build e validação do catálogo
+- [x] T079 Adotar a marca Quanto Cobrar 3D, configurar metadados e domínio
+      canônico `quantocobrar3d.com`, preservar as chaves legadas e atualizar o
+      pacote para `2.0.1`
+- [x] T080 Criar favicon vetorial responsivo à resolução com a paleta da marca e
+      configurar sua descoberta no documento HTML
 
 ## Dependências entre fases
 

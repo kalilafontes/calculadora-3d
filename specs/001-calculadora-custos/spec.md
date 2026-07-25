@@ -3,6 +3,7 @@
 **Branch sugerida**: `001-calculadora-custos`  
 **Criada em**: 2026-07-24  
 **Status**: V2 implementada
+
 **Entrada original**: Criar o MVP de uma plataforma web que calcule o custo real
 e sugira o preço de venda de peças impressas em 3D.
 
@@ -13,6 +14,10 @@ custo de produção de uma peça e definir um preço de venda sustentável. Ela 
 material, energia, embalagem, mão de obra, custos adicionais e perdas em uma
 única experiência, apresentando a composição do custo, o lucro estimado e o preço
 sugerido em tempo real.
+
+O produto é apresentado ao público como **Quanto Cobrar 3D**, no domínio
+`quantocobrar3d.com`. O título principal da experiência é “Quanto cobrar pela
+sua impressão 3D?”.
 
 ## Histórias de usuário e validação
 
