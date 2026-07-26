@@ -367,6 +367,15 @@ backend ou autenticação.
 - [x] T094 Aplicar a identidade de cor ao PDF com contraste automático e revisão
       visual
 
+## Fase 10 — Descoberta e conteúdo
+
+- [x] T095 Publicar `robots.txt` e `sitemap.xml` válidos para o domínio canônico
+- [x] T096 Adicionar dados estruturados `WebSite` e `WebApplication`
+- [x] T097 Criar imagem social e configurar Open Graph e Twitter Card
+- [x] T098 Adicionar guia semântico, exemplo de margem e perguntas frequentes
+- [x] T099 Validar build, arquivos publicados e consistência das URLs canônicas
+- [x] T100 Publicar as melhorias de descoberta como versão `2.1.1`
+
 ## Dependências entre fases
 
 ```text

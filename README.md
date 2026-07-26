@@ -26,6 +26,7 @@ com base na margem desejada.
 - orçamento profissional em PDF com vendedor, cliente, quantidade e validade;
 - logotipo e imagem da peça opcionais, com cálculo automático do total;
 - cor personalizada por hexadecimal, paleta ou conta-gotas compatível;
+- sitemap, robots, dados estruturados e imagem para compartilhamento;
 - prazo de produção, meios de pagamento, chave Pix, entrada e cuidados
   estruturados;
 - tema claro e escuro;
@@ -152,6 +153,19 @@ O produto usa a marca **Quanto Cobrar 3D** e será publicado em
 `quantocobrar3d.com`. As chaves técnicas legadas `calculadora3d:*` e o banco
 IndexedDB `calculadora3d` são preservados para manter compatibilidade com os
 rascunhos, temas e cálculos já salvos pelos usuários.
+
+## Descoberta e compartilhamento
+
+A página declara `quantocobrar3d.com` como URL canônica e publica
+`/sitemap.xml`, `/robots.txt` e dados estruturados de `WebSite` e
+`WebApplication`. Metadados Open Graph e Twitter Card usam uma imagem social de
+1200 × 630 px. O conteúdo visível inclui um guia de formação de preço, exemplo
+de margem e perguntas frequentes para explicar o propósito da ferramenta a
+pessoas e mecanismos de busca.
+
+Após cada publicação relevante, a URL principal pode ser inspecionada no Google
+Search Console. O sitemap deve ser cadastrado como
+`https://quantocobrar3d.com/sitemap.xml`.
 
 ## Orçamentos em PDF
 

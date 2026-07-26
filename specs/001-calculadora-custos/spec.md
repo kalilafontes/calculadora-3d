@@ -322,6 +322,12 @@ quantidade e total sem revelar custos internos ou margem.
   paleta nativa e conta-gotas quando suportado pelo navegador.
 - **RF-053**: a cor deve ser persistida com o perfil e aplicada ao PDF com cor de
   texto escolhida automaticamente para preservar a legibilidade.
+- **RF-054**: a aplicação deve publicar sitemap e robots válidos com a URL
+  canônica de produção.
+- **RF-055**: a página deve declarar metadados sociais e dados estruturados de
+  aplicação web coerentes com o conteúdo visível.
+- **RF-056**: a página deve explicar formação de preço, margem, custos e dúvidas
+  frequentes em conteúdo semântico e acessível.
 
 ## Regras de negócio e fórmulas
 
@@ -495,6 +501,8 @@ para restauração e novo cálculo.
   rastreável até a fonte, competência e método de agregação usados.
 - **RNF-009 — Isolamento local**: cálculos nomeados não devem exigir rede, conta
   ou servidor e devem permanecer restritos à origem atual do navegador.
+- **RNF-010 — Descoberta**: arquivos e metadados destinados a mecanismos de
+  busca devem usar somente URLs absolutas do domínio canônico.
 
 ## Critérios mensuráveis de sucesso
 

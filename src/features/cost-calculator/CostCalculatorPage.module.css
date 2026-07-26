@@ -165,6 +165,133 @@
   margin: 0;
 }
 
+.guide {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.guideIntro {
+  max-width: 48rem;
+}
+
+.guideIntro > span,
+.example span {
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.guideIntro h2,
+.faq h2 {
+  margin: 0.45rem 0 0;
+  color: var(--color-text);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: -0.03em;
+}
+
+.guideIntro p {
+  margin: 0.8rem 0 0;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.guideCards {
+  display: grid;
+  gap: 1rem;
+}
+
+.guideCards article {
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.guideCards article > strong {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  place-items: center;
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  font-size: 0.75rem;
+}
+
+.guideCards h3,
+.example h3 {
+  margin: 0.9rem 0 0;
+  color: var(--color-text);
+}
+
+.guideCards p,
+.example p {
+  margin: 0.5rem 0 0;
+  line-height: 1.65;
+}
+
+.example {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-soft);
+}
+
+.example h3 {
+  margin-top: 0.35rem;
+}
+
+.faq {
+  display: grid;
+  gap: 0.65rem;
+  max-width: 52rem;
+}
+
+.faq h2 {
+  margin-bottom: 0.5rem;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.faq details {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.faq summary {
+  color: var(--color-text);
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.faq p {
+  margin: 0.75rem 0 0;
+  line-height: 1.65;
+}
+
+.siteFooter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+}
+
+.siteFooter strong {
+  color: var(--color-text);
+}
+
 @media (min-width: 42rem) {
   .hero {
     grid-template-columns: minmax(0, 1fr) 14rem;
@@ -172,6 +299,15 @@
 
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .guideCards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .example {
+    grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1fr);
+    align-items: center;
   }
 }
 

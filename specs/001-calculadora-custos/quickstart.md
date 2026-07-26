@@ -121,6 +121,17 @@ peças:
 - Comparar manualmente uma amostra de pelo menos três distribuidoras com a fonte.
 - Confirmar que editar o kWh substitui a estimativa para um usuário comercial.
 
+## Validação de descoberta
+
+- Confirmar que `/robots.txt` é texto simples, permite `/` e referencia o
+  sitemap canônico.
+- Confirmar que `/sitemap.xml` é XML válido e contém
+  `https://quantocobrar3d.com/`.
+- Conferir canonical, descrição, Open Graph, Twitter Card e JSON-LD no HTML de
+  produção.
+- Validar `og-image.png` em 1200 × 630 px.
+- Após publicar, testar a URL no Search Console e cadastrar `sitemap.xml`.
+
 ## Condição de aceite
 
 A entrega pode avançar quando typecheck, testes e build passarem, os cinco
