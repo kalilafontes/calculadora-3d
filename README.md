@@ -167,6 +167,11 @@ Após cada publicação relevante, a URL principal pode ser inspecionada no Goog
 Search Console. O sitemap deve ser cadastrado como
 `https://quantocobrar3d.com/sitemap.xml`.
 
+O primeiro conteúdo editorial é o guia estático
+`/como-calcular-preco-impressao-3d/`. Ele possui HTML independente da aplicação,
+metadados próprios, dados estruturados de artigo, breadcrumb e perguntas
+frequentes, além de links de ida e volta para a calculadora.
+
 ## Orçamentos em PDF
 
 Um cálculo válido pode ser transformado em orçamento diretamente no navegador.

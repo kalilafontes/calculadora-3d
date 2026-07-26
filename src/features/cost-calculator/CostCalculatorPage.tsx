@@ -216,7 +216,7 @@ export function CostCalculatorPage() {
         </div>
       </header>
 
-      <div className={styles.layout}>
+      <div id="calculadora" className={styles.layout}>
         <form
           className={styles.form}
           onSubmit={(event) => event.preventDefault()}
@@ -489,6 +489,12 @@ export function CostCalculatorPage() {
             Tempo de máquina, energia, mão de obra, embalagem, perdas e margem
             fazem parte do custo real de uma impressão 3D.
           </p>
+          <a
+            className={styles.guideLink}
+            href="/como-calcular-preco-impressao-3d/"
+          >
+            Ler o guia completo de formação de preço
+          </a>
         </div>
 
         <div className={styles.guideCards}>

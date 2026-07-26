@@ -200,6 +200,14 @@
   line-height: 1.7;
 }
 
+.guideLink {
+  display: inline-flex;
+  margin-top: 0.9rem;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
 .guideCards {
   display: grid;
   gap: 1rem;

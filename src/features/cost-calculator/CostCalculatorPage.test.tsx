@@ -132,4 +132,14 @@ describe("CostCalculatorPage", () => {
       "#BE185D",
     );
   });
+
+  it("oferece acesso ao guia completo de formação de preço", () => {
+    render(<CostCalculatorPage />);
+
+    expect(
+      screen.getByRole("link", {
+        name: "Ler o guia completo de formação de preço",
+      }),
+    ).toHaveAttribute("href", "/como-calcular-preco-impressao-3d/");
+  });
 });

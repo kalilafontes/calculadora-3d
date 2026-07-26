@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/shared/styles/content-page.css" />
+    <meta name="theme-color" content="#be185d" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta
+      name="description"
+      content="Aprenda como calcular o preço de uma impressão 3D considerando filamento, energia, mão de obra, perdas, margem e quantidade de peças."
+    />
+    <meta property="og:site_name" content="Quanto Cobrar 3D" />
+    <meta
+      property="og:title"
+      content="Como calcular o preço de uma impressão 3D"
+    />
+    <meta
+      property="og:description"
+      content="Guia prático para calcular custos, definir margem e chegar a um preço sustentável para suas impressões 3D."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta
+      property="og:url"
+      content="https://quantocobrar3d.com/como-calcular-preco-impressao-3d/"
+    />
+    <meta
+      property="og:image"
+      content="https://quantocobrar3d.com/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Quanto Cobrar 3D: calcule custos, defina seu preço e gere orçamentos."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Como calcular o preço de uma impressão 3D"
+    />
+    <meta
+      name="twitter:description"
+      content="Filamento, energia, mão de obra, perdas e margem explicados em um guia prático."
+    />
+    <meta
+      name="twitter:image"
+      content="https://quantocobrar3d.com/og-image.png"
+    />
+    <link
+      rel="canonical"
+      href="https://quantocobrar3d.com/como-calcular-preco-impressao-3d/"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Article",
+            "@id": "https://quantocobrar3d.com/como-calcular-preco-impressao-3d/#article",
+            "headline": "Como calcular o preço de uma impressão 3D",
+            "description": "Guia prático para calcular custos, definir margem e chegar a um preço sustentável para impressões 3D.",
+            "image": "https://quantocobrar3d.com/og-image.png",
+            "datePublished": "2026-07-25",
+            "dateModified": "2026-07-25",
+            "inLanguage": "pt-BR",
+            "mainEntityOfPage": "https://quantocobrar3d.com/como-calcular-preco-impressao-3d/",
+            "author": {
+              "@type": "Organization",
+              "name": "Quanto Cobrar 3D",
+              "url": "https://quantocobrar3d.com/"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Quanto Cobrar 3D",
+              "url": "https://quantocobrar3d.com/"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Calculadora",
+                "item": "https://quantocobrar3d.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Como calcular o preço de uma impressão 3D",
+                "item": "https://quantocobrar3d.com/como-calcular-preco-impressao-3d/"
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Quanto cobrar por hora de impressão 3D?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Não existe um valor universal por hora. O preço deve considerar energia, disponibilidade e desgaste da máquina, além de filamento, mão de obra, perdas, embalagem e margem."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Como calcular o custo do filamento?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Divida o peso total da impressão em gramas por 1.000 e multiplique pelo preço do quilograma do filamento. Inclua peças, suportes, torre de purga e demais resíduos previstos pelo fatiador."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Qual margem usar em impressão 3D?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A margem depende do mercado, complexidade, risco e posicionamento do negócio. Ela deve ser aplicada ao preço final, depois que todos os custos forem incluídos."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <title>Como calcular preço de impressão 3D | Guia completo</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Quanto Cobrar 3D — início">
+        Quanto Cobrar 3D
+      </a>
+      <a class="header-action" href="/#calculadora">Abrir calculadora</a>
+    </header>
+
+    <main>
+      <nav class="breadcrumb" aria-label="Navegação estrutural">
+        <a href="/">Calculadora</a>
+        <span aria-hidden="true">/</span>
+        <span>Guia de formação de preço</span>
+      </nav>
+
+      <article>
+        <header class="article-header">
+          <span class="eyebrow">Guia completo</span>
+          <h1>Como calcular o preço de uma impressão 3D?</h1>
+          <p class="lead">
+            Cobrar somente pelo filamento quase sempre deixa custos importantes
+            de fora. Veja como transformar os dados do fatiador em um preço que
+            cubra a produção e preserve sua margem.
+          </p>
+          <div class="article-meta">
+            <span>Leitura de 8 minutos</span>
+            <span>Atualizado em julho de 2026</span>
+          </div>
+        </header>
+
+        <aside class="summary" aria-labelledby="summary-title">
+          <h2 id="summary-title">O cálculo em uma frase</h2>
+          <p>
+            Some material, energia, mão de obra, embalagem, outros custos e
+            perdas; depois aplique a margem desejada sobre o preço final.
+          </p>
+          <a href="/#calculadora">Calcular meu preço agora</a>
+        </aside>
+
+        <section>
+          <h2>1. Comece pelos dados do fatiador</h2>
+          <p>
+            O fatiador informa duas bases importantes: o peso total usado e o
+            tempo previsto de impressão. Use o peso da mesa inteira, incluindo
+            suportes, brim, raft, torre de purga e qualquer material que será
+            consumido durante o trabalho.
+          </p>
+          <p>
+            Se a mesa produz várias unidades de uma vez, informe também a
+            quantidade de peças. O custo da impressão pertence à mesa completa;
+            o valor por peça é obtido dividindo esse total pela quantidade
+            produzida.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Calcule o custo do filamento</h2>
+          <p>
+            Converta o peso de gramas para quilogramas e multiplique pelo preço
+            pago no rolo. A fórmula é:
+          </p>
+          <div class="formula">
+            custo do filamento = (peso em gramas ÷ 1.000) × preço por kg
+          </div>
+          <p>
+            Por exemplo: uma impressão de 180 g usando um filamento de R$ 100
+            por quilograma consome R$ 18 em material. Esse número ainda não é o
+            custo total da produção.
+          </p>
+        </section>
+
+        <section>
+          <h2>3. Inclua o custo de energia</h2>
+          <p>
+            Para estimar a energia, multiplique a potência considerada da
+            impressora pelo tempo de impressão e pelo preço do kWh. Converta
+            watts para quilowatts antes da multiplicação:
+          </p>
+          <div class="formula">
+            energia = (potência em W ÷ 1.000) × horas × preço do kWh
+          </div>
+          <p>
+            A potência máxima do fabricante produz uma estimativa conservadora.
+            Se você tiver uma medição real do consumo médio ou o valor correto
+            do kWh da sua conta, use esses dados para aumentar a precisão.
+          </p>
+        </section>
+
+        <section>
+          <h2>4. Valorize sua mão de obra</h2>
+          <p>
+            Impressão automática não significa trabalho gratuito. Preparar o
+            arquivo, configurar a máquina, trocar material, remover suportes,
+            lixar, colar, pintar, embalar e conversar com o cliente consomem
+            tempo.
+          </p>
+          <p>
+            Registre o tempo efetivamente dedicado e multiplique pelo valor da
+            sua hora. Para serviços recorrentes, você também pode definir um
+            valor direto de mão de obra para a impressão completa.
+          </p>
+        </section>
+
+        <section>
+          <h2>5. Não esqueça embalagem, adicionais e perdas</h2>
+          <p>
+            Embalagem, etiquetas, ímãs, parafusos, cola, tinta e transporte até
+            o ponto de envio devem entrar no cálculo quando fizerem parte da
+            entrega. Pequenos valores repetidos reduzem bastante o resultado no
+            fim do mês.
+          </p>
+          <p>
+            Também existe o risco de falha. Uma reserva percentual sobre
+            filamento e energia ajuda a absorver entupimentos, peças soltas da
+            mesa, quedas de energia e reimpressões sem transformar cada problema
+            em prejuízo.
+          </p>
+        </section>
+
+        <section>
+          <h2>6. Aplique margem, não apenas um multiplicador</h2>
+          <p>
+            Margem e markup não são a mesma coisa. Margem é a parcela do preço
+            de venda que sobra como lucro. Para encontrar o preço usando margem:
+          </p>
+          <div class="formula">
+            preço = custo total ÷ (1 − margem percentual)
+          </div>
+          <p>
+            Se o custo total é R$ 80 e a margem desejada é 20%, o preço é R$
+            100. O lucro de R$ 20 representa exatamente 20% do preço final.
+            Apenas acrescentar 20% ao custo resultaria em R$ 96 e uma margem
+            real menor.
+          </p>
+        </section>
+
+        <section>
+          <h2>Exemplo completo de formação de preço</h2>
+          <div
+            class="example-table"
+            role="region"
+            aria-label="Exemplo de custos"
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th>Componente</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Filamento</td>
+                  <td>R$ 18,00</td>
+                </tr>
+                <tr>
+                  <td>Energia</td>
+                  <td>R$ 2,40</td>
+                </tr>
+                <tr>
+                  <td>Mão de obra</td>
+                  <td>R$ 20,00</td>
+                </tr>
+                <tr>
+                  <td>Embalagem e adicionais</td>
+                  <td>R$ 7,60</td>
+                </tr>
+                <tr>
+                  <td>Perdas previstas</td>
+                  <td>R$ 2,00</td>
+                </tr>
+                <tr class="total-row">
+                  <td>Custo total</td>
+                  <td>R$ 50,00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Com custo de R$ 50 e margem de 20%, o preço sugerido é R$ 62,50. Se
+            essa impressão produzir cinco peças iguais, o equivalente é R$ 12,50
+            por peça.
+          </p>
+        </section>
+
+        <section class="decision-box">
+          <div>
+            <span class="eyebrow">Do cálculo ao cliente</span>
+            <h2>Transforme o resultado em orçamento</h2>
+            <p>
+              Use a calculadora gratuita para conferir os componentes, salvar o
+              cálculo e gerar um PDF com sua identidade visual.
+            </p>
+          </div>
+          <a href="/#calculadora">Usar a calculadora gratuita</a>
+        </section>
+
+        <section class="faq">
+          <h2>Perguntas frequentes</h2>
+          <details>
+            <summary>Quanto cobrar por hora de impressão 3D?</summary>
+            <p>
+              Não existe um valor universal por hora. A hora de máquina deve
+              considerar energia, disponibilidade e desgaste, mas o orçamento
+              completo também precisa incluir material, mão de obra, perdas,
+              embalagem e margem.
+            </p>
+          </details>
+          <details>
+            <summary>Como calcular o custo do filamento?</summary>
+            <p>
+              Divida o peso total da impressão em gramas por 1.000 e multiplique
+              pelo preço do quilograma. Inclua todo material previsto pelo
+              fatiador, não apenas o peso líquido da peça.
+            </p>
+          </details>
+          <details>
+            <summary>Qual margem usar em impressão 3D?</summary>
+            <p>
+              A margem depende do mercado, complexidade, risco, acabamento e
+              posicionamento do negócio. Compare o preço final com alternativas
+              do cliente sem remover custos essenciais para competir.
+            </p>
+          </details>
+          <details>
+            <summary>
+              Como dividir o custo quando há várias peças na mesa?
+            </summary>
+            <p>
+              Calcule primeiro a impressão completa e depois divida custo, preço
+              e lucro pela quantidade de peças produzidas juntas.
+            </p>
+          </details>
+        </section>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Quanto Cobrar 3D</strong>
+        <span>Preço sustentável para quem produz com impressão 3D.</span>
+      </div>
+      <a href="/">Voltar para a calculadora</a>
+    </footer>
+  </body>
+</html>

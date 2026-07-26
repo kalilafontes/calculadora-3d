@@ -131,6 +131,9 @@ peças:
   produção.
 - Validar `og-image.png` em 1200 × 630 px.
 - Após publicar, testar a URL no Search Console e cadastrar `sitemap.xml`.
+- Confirmar que `/como-calcular-preco-impressao-3d/` funciona sem JavaScript,
+  possui canonical próprio e oferece links para a calculadora.
+- Validar os dados estruturados `Article`, `BreadcrumbList` e `FAQPage` do guia.
 
 ## Condição de aceite
 

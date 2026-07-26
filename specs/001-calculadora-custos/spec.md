@@ -328,6 +328,11 @@ quantidade e total sem revelar custos internos ou margem.
   aplicação web coerentes com o conteúdo visível.
 - **RF-056**: a página deve explicar formação de preço, margem, custos e dúvidas
   frequentes em conteúdo semântico e acessível.
+- **RF-057**: o site deve publicar um guia estático sobre formação de preço com
+  URL própria, canonical, metadados sociais, dados estruturados e chamada para a
+  calculadora.
+- **RF-058**: calculadora e guia devem possuir links internos recíprocos, e todas
+  as páginas públicas devem constar no sitemap.
 
 ## Regras de negócio e fórmulas
 

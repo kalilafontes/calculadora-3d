@@ -375,6 +375,12 @@ backend ou autenticação.
 - [x] T098 Adicionar guia semântico, exemplo de margem e perguntas frequentes
 - [x] T099 Validar build, arquivos publicados e consistência das URLs canônicas
 - [x] T100 Publicar as melhorias de descoberta como versão `2.1.1`
+- [x] T101 Criar guia estático e aprofundado sobre formação de preço para
+      impressão 3D
+- [x] T102 Configurar entrada multipágina, canonical, Article, BreadcrumbList e
+      FAQPage para o guia
+- [x] T103 Ligar guia e calculadora e incluir a nova URL no sitemap
+- [x] T104 Publicar a primeira evolução de conteúdo como versão `2.2.0`
 
 ## Dependências entre fases
 
