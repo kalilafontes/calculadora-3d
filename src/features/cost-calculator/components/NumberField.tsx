@@ -8,6 +8,7 @@ interface NumberFieldProps {
   helpText?: string;
   error?: string;
   registration: UseFormRegisterReturn;
+  className?: string;
 }
 
 export function NumberField({
@@ -17,13 +18,14 @@ export function NumberField({
   helpText,
   error,
   registration,
+  className,
 }: NumberFieldProps) {
   const helpId = helpText ? `${id}-help` : undefined;
   const errorId = error ? `${id}-error` : undefined;
   const describedBy = [helpId, errorId].filter(Boolean).join(" ") || undefined;
 
   return (
-    <div className={styles.field}>
+    <div className={`${styles.field} ${className ?? ""}`}>
       <label htmlFor={id} className={styles.label}>
         {label}
       </label>

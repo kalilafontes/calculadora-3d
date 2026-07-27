@@ -7,6 +7,7 @@ interface DistributorSelectProps {
   value: string;
   onChange: (value: string) => void;
   disabled?: boolean;
+  className?: string;
 }
 
 export function DistributorSelect({
@@ -14,10 +15,11 @@ export function DistributorSelect({
   value,
   onChange,
   disabled,
+  className,
 }: DistributorSelectProps) {
   return (
-    <label className={styles.field}>
-      <span>Distribuidora (opcional)</span>
+    <label className={`${styles.field} ${className ?? ""}`}>
+      <span className={styles.label}>Distribuidora (opcional)</span>
       <select
         className={styles.select}
         aria-label="Distribuidora (opcional)"

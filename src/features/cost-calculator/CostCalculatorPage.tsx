@@ -300,108 +300,126 @@ export function CostCalculatorPage() {
                 <p>Use a potência média informada pelo fabricante.</p>
               </div>
             </div>
-            <div className={styles.grid}>
-              <NumberField
-                id="printTimeHours"
-                label="Tempo de impressão"
-                unit="h"
-                error={fieldError("printTimeHours")}
-                registration={register("printTimeHours")}
-              />
-              <PrinterSelect
-                printerModelId={values.printerModelId}
-                voltage={printerVoltage}
-                onPrinterChange={(printerModelId) => {
-                  setValue("printerModelId", printerModelId);
-                  if (!printerModelId) {
-                    setManualPrinterPower(true);
-                    setValue("printerPowerOrigin", "manual");
-                    return;
-                  }
-                  const selection = findPrinterProfile(
-                    printerModelId,
-                    printerVoltage,
-                  );
-                  if (selection) {
-                    setManualPrinterPower(false);
-                    setValue(
-                      "printerPowerWatts",
-                      String(selection.profile.maxPowerWatts),
-                    );
-                    setValue("printerPowerOrigin", "manufacturer-max");
-                  }
-                }}
-                onVoltageChange={(voltage) => {
-                  setValue("printerVoltage", String(voltage) as "127" | "220");
-                  const selection = findPrinterProfile(
-                    values.printerModelId,
-                    voltage,
-                  );
-                  if (selection) {
-                    setManualPrinterPower(false);
-                    setValue(
-                      "printerPowerWatts",
-                      String(selection.profile.maxPowerWatts),
-                    );
-                    setValue("printerPowerOrigin", "manufacturer-max");
-                  }
-                }}
-              />
-              <NumberField
-                id="printerPowerWatts"
-                label="Potência da impressora"
-                unit="W"
-                helpText="Selecione um modelo ou informe a potência que deseja considerar."
-                error={fieldError("printerPowerWatts")}
-                registration={register("printerPowerWatts", {
-                  onChange: () => {
-                    setManualPrinterPower(true);
-                    setValue("printerPowerOrigin", "manual");
-                  },
-                })}
-              />
-              <PrinterPowerNotice
-                printer={selectedPrinterProfile?.printer ?? null}
-                isManual={manualPrinterPower}
-              />
-              <StateSelect
-                registration={register("stateCode", {
-                  onChange: () => {
-                    setManualEnergyOverride(false);
-                    setValue("distributorId", "");
-                    setValue("energyPriceOrigin", "state");
-                  },
-                })}
-              />
-              <DistributorSelect
-                distributors={distributors}
-                value={values.distributorId}
-                onChange={(distributorId) => {
-                  setManualEnergyOverride(false);
-                  setValue("distributorId", distributorId);
-                  setValue(
-                    "energyPriceOrigin",
-                    distributorId ? "distributor" : "state",
-                  );
-                }}
-              />
-              <NumberField
-                id="energyPricePerKwh"
-                label="Preço da energia"
-                unit="R$/kWh"
-                helpText="A estimativa pode ser substituída pelo valor da sua conta."
-                error={fieldError("energyPricePerKwh")}
-                registration={register("energyPricePerKwh", {
-                  onChange: () => {
-                    setManualEnergyOverride(true);
-                    setValue("energyPriceOrigin", "manual");
-                  },
-                })}
-              />
-              <EnergyEstimateNotice
-                estimate={estimate}
-                isManual={manualEnergyOverride}
-              />
+            <div className={styles.energyGroups}>
+              <div className={styles.energyGroup}>
+                <div className={styles.energyGroupHeading}>
+                  <strong>Máquina e consumo</strong>
+                  <span>Dados usados para estimar o gasto da impressora.</span>
+                </div>
+                <div className={styles.grid}>
+                  <NumberField
+                    id="printTimeHours"
+                    label="Tempo de impressão"
+                    unit="h"
+                    error={fieldError("printTimeHours")}
+                    registration={register("printTimeHours")}
+                  />
+                  <PrinterSelect
+                    printerModelId={values.printerModelId}
+                    voltage={printerVoltage}
+                    onPrinterChange={(printerModelId) => {
+                      setValue("printerModelId", printerModelId);
+                      if (!printerModelId) {
+                        setManualPrinterPower(true);
+                        setValue("printerPowerOrigin", "manual");
+                        return;
+                      }
+                      const selection = findPrinterProfile(
+                        printerModelId,
+                        printerVoltage,
+                      );
+                      if (selection) {
+                        setManualPrinterPower(false);
+                        setValue(
+                          "printerPowerWatts",
+                          String(selection.profile.maxPowerWatts),
+                        );
+                        setValue("printerPowerOrigin", "manufacturer-max");
+                      }
+                    }}
+                    onVoltageChange={(voltage) => {
+                      setValue("printerVoltage", String(voltage) as "127" | "220");
+                      const selection = findPrinterProfile(
+                        values.printerModelId,
+                        voltage,
+                      );
+                      if (selection) {
+                        setManualPrinterPower(false);
+                        setValue(
+                          "printerPowerWatts",
+                          String(selection.profile.maxPowerWatts),
+                        );
+                        setValue("printerPowerOrigin", "manufacturer-max");
+                      }
+                    }}
+                  />
+                  <NumberField
+                    id="printerPowerWatts"
+                    label="Potência da impressora"
+                    unit="W"
+                    helpText="Selecione um modelo ou informe a potência que deseja considerar."
+                    error={fieldError("printerPowerWatts")}
+                    registration={register("printerPowerWatts", {
+                      onChange: () => {
+                        setManualPrinterPower(true);
+                        setValue("printerPowerOrigin", "manual");
+                      },
+                    })}
+                  />
+                  <PrinterPowerNotice
+                    printer={selectedPrinterProfile?.printer ?? null}
+                    isManual={manualPrinterPower}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.energyGroup}>
+                <div className={styles.energyGroupHeading}>
+                  <strong>Tarifa de energia</strong>
+                  <span>Escolha a referência para o preço do kWh.</span>
+                </div>
+                <div className={styles.grid}>
+                  <StateSelect
+                    registration={register("stateCode", {
+                      onChange: () => {
+                        setManualEnergyOverride(false);
+                        setValue("distributorId", "");
+                        setValue("energyPriceOrigin", "state");
+                      },
+                    })}
+                  />
+                  <DistributorSelect
+                    distributors={distributors}
+                    value={values.distributorId}
+                    onChange={(distributorId) => {
+                      setManualEnergyOverride(false);
+                      setValue("distributorId", distributorId);
+                      setValue(
+                        "energyPriceOrigin",
+                        distributorId ? "distributor" : "state",
+                      );
+                    }}
+                  />
+                  <NumberField
+                    id="energyPricePerKwh"
+                    label="Preço da energia"
+                    unit="R$/kWh"
+                    className={styles.energyPriceField}
+                    helpText="A estimativa pode ser substituída pelo valor da sua conta."
+                    error={fieldError("energyPricePerKwh")}
+                    registration={register("energyPricePerKwh", {
+                      onChange: () => {
+                        setManualEnergyOverride(true);
+                        setValue("energyPriceOrigin", "manual");
+                      },
+                    })}
+                  />
+                  <EnergyEstimateNotice
+                    estimate={estimate}
+                    isManual={manualEnergyOverride}
+                  />
+                </div>
+              </div>
             </div>
           </section>
 

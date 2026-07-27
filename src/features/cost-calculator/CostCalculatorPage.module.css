@@ -207,6 +207,38 @@
   gap: 1rem;
 }
 
+.energyGroups {
+  display: grid;
+  gap: 1rem;
+}
+
+.energyGroup {
+  padding: 1rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: var(--color-subtle);
+}
+
+.energyGroupHeading {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 0.9rem;
+}
+
+.energyGroupHeading strong {
+  color: var(--color-text);
+  font-size: 0.82rem;
+}
+
+.energyGroupHeading span {
+  color: var(--color-text-muted);
+  font-size: 0.74rem;
+}
+
+.energyPriceField {
+  grid-column: 1 / -1;
+}
+
 .mode {
   display: flex;
   flex-wrap: wrap;

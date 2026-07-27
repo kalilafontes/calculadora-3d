@@ -37,11 +37,12 @@ const stateNames: Record<BrazilStateCode, string> = {
 
 interface StateSelectProps {
   registration: UseFormRegisterReturn;
+  className?: string;
 }
 
-export function StateSelect({ registration }: StateSelectProps) {
+export function StateSelect({ registration, className }: StateSelectProps) {
   return (
-    <div className={styles.field}>
+    <div className={`${styles.field} ${className ?? ""}`}>
       <label htmlFor="stateCode" className={styles.label}>
         Estado
       </label>
