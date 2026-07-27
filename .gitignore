@@ -31,3 +31,8 @@ scripts/energy-data/raw/*.csv
 scripts/energy-data/raw/*.parquet
 scripts/energy-data/raw/*.zip
 !scripts/energy-data/raw/manifest.json
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example

@@ -2,8 +2,10 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { fileURLToPath } from "node:url";
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), cloudflare()],
   build: {
     rollupOptions: {
       input: {

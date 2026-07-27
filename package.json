@@ -16,7 +16,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "energy:generate": "node scripts/energy-data/generate-energy-catalog.mjs",
-    "energy:validate": "node scripts/energy-data/validate-energy-catalog.mjs"
+    "energy:validate": "node scripts/energy-data/validate-energy-catalog.mjs",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "npm run build && wrangler dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -27,6 +29,7 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.47.0",
     "@eslint/js": "^9.39.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
@@ -45,6 +48,7 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.2",
-    "vitest": "^4.0.8"
+    "vitest": "^4.0.8",
+    "wrangler": "^4.114.0"
   }
 }
