@@ -12,7 +12,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  background: var(--color-surface);
+  background-color: var(--color-surface);
 }
 
 .field select:disabled {

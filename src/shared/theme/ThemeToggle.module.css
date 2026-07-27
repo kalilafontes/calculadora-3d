@@ -19,7 +19,8 @@
 }
 
 .toggle span {
+  display: inline-flex;
+  align-items: center;
   color: var(--color-primary);
-  font-size: 1rem;
   line-height: 1;
 }

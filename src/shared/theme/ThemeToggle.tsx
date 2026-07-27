@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AppIcon } from "../ui/AppIcon";
 import styles from "./ThemeToggle.module.css";
 
 export type ColorTheme = "light" | "dark";
@@ -38,7 +39,9 @@ export function ThemeToggle() {
       aria-pressed={isDark}
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
-      <span aria-hidden="true">{isDark ? "☀" : "☾"}</span>
+      <span aria-hidden="true">
+        <AppIcon name={isDark ? "sun" : "moon"} size={16} />
+      </span>
       {isDark ? "Modo claro" : "Modo escuro"}
     </button>
   );

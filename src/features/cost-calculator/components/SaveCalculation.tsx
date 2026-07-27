@@ -2,12 +2,14 @@ import { useState } from "react";
 import styles from "./SaveCalculation.module.css";
 
 interface SaveCalculationProps {
+  id?: string;
   disabled: boolean;
   status: string | null;
   onSave: (title: string) => Promise<boolean>;
 }
 
 export function SaveCalculation({
+  id,
   disabled,
   status,
   onSave,
@@ -25,7 +27,7 @@ export function SaveCalculation({
   }
 
   return (
-    <section className={styles.card}>
+    <section id={id} className={styles.card}>
       <h2>Salvar cálculo</h2>
       <p>Dê um nome para encontrar este orçamento nos recentes.</p>
       <form className={styles.form} onSubmit={handleSubmit}>

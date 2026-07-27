@@ -9,7 +9,7 @@ import type {
 } from "../../domain/calculation/calculation.types";
 import { LocalStorageCalculationDraftRepository } from "../../infrastructure/storage/LocalStorageCalculationDraftRepository";
 import { IndexedDbSavedCalculationRepository } from "../../infrastructure/storage/IndexedDbSavedCalculationRepository";
-import { ThemeToggle } from "../../shared/theme/ThemeToggle";
+import { AppHeader } from "../../shared/navigation/AppHeader";
 import {
   findPrinterProfile,
   type PrinterVoltage,
@@ -30,6 +30,7 @@ import { useEnergyEstimate } from "./hooks/useEnergyEstimate";
 import { useSavedCalculations } from "./hooks/useSavedCalculations";
 import { QuotationAction } from "../quotation/components/QuotationAction";
 import { QuotationDialog } from "../quotation/components/QuotationDialog";
+import { AppIcon } from "../../shared/ui/AppIcon";
 import styles from "./CostCalculatorPage.module.css";
 
 export interface FormValues {
@@ -136,6 +137,11 @@ export function CostCalculatorPage() {
       laborMode === "direct" ? values.directLaborCost : undefined,
   });
 
+  const fieldError = (field: keyof FormValues) =>
+    parsed.success
+      ? undefined
+      : parsed.error.issues.find((issue) => issue.path[0] === field)?.message;
+
   const result = parsed.success ? calculateCosts(parsed.data) : null;
   const applyEnergyEstimate = useCallback(
     (estimate: { pricePerKwh: number; origin: "state" | "distributor" }) => {
@@ -198,21 +204,49 @@ export function CostCalculatorPage() {
 
   return (
     <main className={styles.page}>
+      <AppHeader />
       <header className={styles.hero}>
-        <div>
+        <div className={styles.heroCopy}>
           <div className={styles.heroTop}>
-            <span className={styles.badge}>Quanto Cobrar 3D</span>
-            <ThemeToggle />
+            <span className={styles.badge}>
+              <AppIcon name="sparkle" size={15} />
+              Calculadora inteligente
+            </span>
           </div>
           <h1>Quanto cobrar pela sua impressão 3D?</h1>
           <p>
-            Calcule material, energia, mão de obra e margem para chegar a um
-            preço de venda sustentável, sem planilhas complicadas.
+            Calcule todos os custos com precisão e defina um preço justo para
+            sua impressão 3D. Simples, rápido e sem planilhas complicadas.
           </p>
+          <div className={styles.heroBenefits} aria-label="Benefícios da calculadora">
+            <div>
+              <span><AppIcon name="filament" size={20} /></span>
+              <strong>Cálculo completo</strong>
+              <small>Material, energia e mão de obra</small>
+            </div>
+            <div>
+              <span><AppIcon name="refresh" size={20} /></span>
+              <strong>Atualizado</strong>
+              <small>Preços e resultados em tempo real</small>
+            </div>
+            <div>
+              <span><AppIcon name="tag" size={20} /></span>
+              <strong>Fácil de usar</strong>
+              <small>Interface intuitiva e objetiva</small>
+            </div>
+          </div>
         </div>
-        <div className={styles.heroMetric} aria-label="Atualização automática">
-          <strong>Tempo real</strong>
-          <span>Resultados atualizados enquanto você preenche</span>
+        <div className={styles.heroVisual}>
+          <div className={styles.heroImageWrap}>
+            <img
+              src="/images/hero-vase-2-optimized.png"
+              alt="Vaso decorativo rosa com textura espiral, impresso em 3D"
+            />
+          </div>
+          <a className={styles.mobileResultLink} href="#pricing-title">
+            Ver resultado atual
+            <span aria-hidden="true">↓</span>
+          </a>
         </div>
       </header>
 
@@ -221,11 +255,11 @@ export function CostCalculatorPage() {
           className={styles.form}
           onSubmit={(event) => event.preventDefault()}
         >
-          <section className={styles.section}>
+          <section id="materiais" className={styles.section}>
             <div className={styles.sectionHeading}>
-              <span>01</span>
+              <span className={styles.sectionIcon}><AppIcon name="filament" size={21} /></span>
               <div>
-                <h2>Impressão e material</h2>
+                <h2><span className={styles.sectionNumber}>01</span> Impressão e material</h2>
                 <p>
                   Use o peso total informado pelo fatiador para toda a mesa.
                 </p>
@@ -237,6 +271,7 @@ export function CostCalculatorPage() {
                 label="Peso total da impressão"
                 unit="g"
                 helpText="Considere todas as peças e suportes da mesa."
+                error={fieldError("weightGrams")}
                 registration={register("weightGrams")}
               />
               <NumberField
@@ -244,22 +279,24 @@ export function CostCalculatorPage() {
                 label="Peças nesta impressão"
                 unit="un."
                 helpText="Quantidade de peças produzidas juntas na mesa."
+                error={fieldError("piecesPerPrint")}
                 registration={register("piecesPerPrint")}
               />
               <NumberField
                 id="filamentPricePerKg"
                 label="Preço do filamento"
                 unit="R$/kg"
+                error={fieldError("filamentPricePerKg")}
                 registration={register("filamentPricePerKg")}
               />
             </div>
           </section>
 
-          <section className={styles.section}>
+          <section id="energia" className={styles.section}>
             <div className={styles.sectionHeading}>
-              <span>02</span>
+              <span className={styles.sectionIcon}><AppIcon name="bolt" size={21} /></span>
               <div>
-                <h2>Impressão e energia</h2>
+                <h2><span className={styles.sectionNumber}>02</span> Impressão e energia</h2>
                 <p>Use a potência média informada pelo fabricante.</p>
               </div>
             </div>
@@ -268,6 +305,7 @@ export function CostCalculatorPage() {
                 id="printTimeHours"
                 label="Tempo de impressão"
                 unit="h"
+                error={fieldError("printTimeHours")}
                 registration={register("printTimeHours")}
               />
               <PrinterSelect
@@ -314,6 +352,7 @@ export function CostCalculatorPage() {
                 label="Potência da impressora"
                 unit="W"
                 helpText="Selecione um modelo ou informe a potência que deseja considerar."
+                error={fieldError("printerPowerWatts")}
                 registration={register("printerPowerWatts", {
                   onChange: () => {
                     setManualPrinterPower(true);
@@ -351,6 +390,7 @@ export function CostCalculatorPage() {
                 label="Preço da energia"
                 unit="R$/kWh"
                 helpText="A estimativa pode ser substituída pelo valor da sua conta."
+                error={fieldError("energyPricePerKwh")}
                 registration={register("energyPricePerKwh", {
                   onChange: () => {
                     setManualEnergyOverride(true);
@@ -367,10 +407,10 @@ export function CostCalculatorPage() {
 
           <section className={styles.section}>
             <div className={styles.sectionHeading}>
-              <span>03</span>
+              <span className={styles.sectionIcon}><AppIcon name="tag" size={21} /></span>
               <div>
-                <h2>Trabalho e adicionais</h2>
-                <p>Inclua o tempo que você dedica à preparação e acabamento.</p>
+                <h2><span className={styles.sectionNumber}>03</span> Mão de obra</h2>
+                <p>Valorize o tempo dedicado à preparação e ao acabamento.</p>
               </div>
             </div>
 
@@ -397,12 +437,14 @@ export function CostCalculatorPage() {
                     id="laborTimeHours"
                     label="Tempo de trabalho"
                     unit="h"
+                    error={fieldError("laborTimeHours")}
                     registration={register("laborTimeHours")}
                   />
                   <NumberField
                     id="laborHourlyRate"
                     label="Valor da sua hora"
                     unit="R$/h"
+                    error={fieldError("laborHourlyRate")}
                     registration={register("laborHourlyRate")}
                   />
                 </>
@@ -411,26 +453,54 @@ export function CostCalculatorPage() {
                   id="directLaborCost"
                   label="Mão de obra da impressão"
                   unit="R$"
+                  error={fieldError("directLaborCost")}
                   registration={register("directLaborCost")}
                 />
               )}
+            </div>
+          </section>
+
+          <section className={styles.section}>
+            <div className={styles.sectionHeading}>
+              <span className={styles.sectionIcon}><AppIcon name="box" size={21} /></span>
+              <div>
+                <h2><span className={styles.sectionNumber}>04</span> Custos adicionais</h2>
+                <p>Inclua embalagem e outros custos da impressão completa.</p>
+              </div>
+            </div>
+            <div className={styles.grid}>
               <NumberField
                 id="packagingCost"
                 label="Embalagem"
                 unit="R$"
+                error={fieldError("packagingCost")}
                 registration={register("packagingCost")}
               />
               <NumberField
                 id="otherCosts"
                 label="Outros custos"
                 unit="R$"
+                error={fieldError("otherCosts")}
                 registration={register("otherCosts")}
               />
+            </div>
+          </section>
+
+          <section className={styles.section}>
+            <div className={styles.sectionHeading}>
+              <span className={styles.sectionIcon}><AppIcon name="chart" size={21} /></span>
+              <div>
+                <h2><span className={styles.sectionNumber}>05</span> Perdas e margem</h2>
+                <p>Reserve perdas e defina o lucro sobre o preço de venda.</p>
+              </div>
+            </div>
+            <div className={styles.grid}>
               <NumberField
                 id="lossPercentage"
                 label="Margem para perdas"
                 unit="%"
                 helpText="Aplicada sobre filamento e energia."
+                error={fieldError("lossPercentage")}
                 registration={register("lossPercentage")}
               />
               <NumberField
@@ -438,6 +508,7 @@ export function CostCalculatorPage() {
                 label="Margem de lucro"
                 unit="%"
                 helpText="Percentual do preço final que representa lucro."
+                error={fieldError("marginPercentage")}
                 registration={register("marginPercentage")}
               />
             </div>
@@ -445,7 +516,11 @@ export function CostCalculatorPage() {
           <ClearCalculationButton onClear={clear} />
         </form>
 
-        <aside className={styles.results} aria-live="polite">
+        <aside
+          className={styles.results}
+          aria-label="Resultados da calculadora"
+          aria-live="polite"
+        >
           {result ? (
             <>
               <PricingSummary result={result} />
@@ -462,6 +537,7 @@ export function CostCalculatorPage() {
             </section>
           )}
           <SaveCalculation
+            id="salvar-calculo"
             disabled={!parsed.success || !result}
             status={status}
             onSave={(title) =>
@@ -478,7 +554,7 @@ export function CostCalculatorPage() {
         </aside>
       </div>
 
-      <section className={styles.guide} aria-labelledby="pricing-guide-title">
+      <section id="dicas" className={styles.guide} aria-labelledby="pricing-guide-title">
         <div className={styles.guideIntro}>
           <span>Guia rápido</span>
           <h2 id="pricing-guide-title">

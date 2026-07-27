@@ -135,9 +135,27 @@
   <body>
     <header class="site-header">
       <a class="brand" href="/" aria-label="Quanto Cobrar 3D — início">
-        Quanto Cobrar 3D
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Quanto Cobrar <strong>3D</strong></span>
       </a>
-      <a class="header-action" href="/#calculadora">Abrir calculadora</a>
+      <nav class="site-nav" aria-label="Navegação principal">
+        <a href="/#calculadora">Calculadora</a>
+        <a href="/#materiais">Materiais</a>
+        <a href="/#energia">Impressoras</a>
+        <a href="/como-calcular-preco-impressao-3d/" aria-current="page">Dicas</a>
+      </nav>
+      <div class="header-actions">
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-pressed="false"
+        >
+          <span aria-hidden="true">☾</span>
+          <span>Modo escuro</span>
+        </button>
+        <a class="header-action" href="/#calculadora">Abrir calculadora</a>
+      </div>
     </header>
 
     <main>
@@ -376,5 +394,39 @@
       </div>
       <a href="/">Voltar para a calculadora</a>
     </footer>
+    <script>
+      (() => {
+        const key = "calculadora3d:theme";
+        const root = document.documentElement;
+        const toggle = document.querySelector("#theme-toggle");
+        const stored = window.localStorage.getItem(key);
+        const initial =
+          stored === "light" || stored === "dark"
+            ? stored
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+
+        const applyTheme = (theme) => {
+          const isDark = theme === "dark";
+          root.dataset.theme = theme;
+          root.style.colorScheme = theme;
+          toggle.setAttribute("aria-pressed", String(isDark));
+          toggle.querySelector("span:first-child").textContent = isDark
+            ? "☀"
+            : "☾";
+          toggle.querySelector("span:last-child").textContent = isDark
+            ? "Modo claro"
+            : "Modo escuro";
+        };
+
+        applyTheme(initial);
+        toggle.addEventListener("click", () => {
+          const next = root.dataset.theme === "dark" ? "light" : "dark";
+          window.localStorage.setItem(key, next);
+          applyTheme(next);
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -4,21 +4,9 @@
   role="img"
   aria-label="Quanto Cobrar 3D"
 >
-  <rect width="64" height="64" rx="15" fill="#be185d" />
-  <path
-    d="M32 11 51 22v20L32 53 13 42V22L32 11Z"
-    fill="none"
-    stroke="#fff"
-    stroke-linejoin="round"
-    stroke-width="5"
-  />
-  <path
-    d="m14 23 18 10 18-10M32 33v19"
-    fill="none"
-    stroke="#fff"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-width="5"
-  />
-  <circle cx="32" cy="33" r="4" fill="#fce7f3" />
+  <g transform="rotate(-10 32 32)" stroke-linecap="round">
+    <path d="M10 20h43" stroke="#be185d" stroke-width="9" />
+    <path d="M17 32h29" stroke="#ec4899" stroke-width="9" />
+    <path d="M24 44h19" stroke="#831843" stroke-width="9" />
+  </g>
 </svg>
