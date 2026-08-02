@@ -10,6 +10,7 @@ import {
 import { downloadQuotationPdf } from "../../../infrastructure/pdf/generateQuotationPdf";
 import { LocalStorageSellerProfileRepository } from "../../../infrastructure/storage/LocalStorageSellerProfileRepository";
 import { formatCurrency } from "../../../shared/formatting/formatters";
+import { trackGa4Event } from "../../../infrastructure/analytics/ga4";
 import styles from "./QuotationDialog.module.css";
 
 interface QuotationDialogProps {
@@ -117,6 +118,7 @@ export function QuotationDialog({ result, onClose }: QuotationDialogProps) {
         productImageDataUrl,
         issuedAt: new Date(),
       });
+      trackGa4Event("quotation_pdf_generated");
       setFormError(null);
     } catch {
       setFormError("Não foi possível gerar o PDF. Tente novamente.");

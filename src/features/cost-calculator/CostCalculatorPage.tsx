@@ -15,6 +15,7 @@ import {
   type PrinterVoltage,
 } from "../../infrastructure/printers/printerCatalog";
 import { ClearCalculationButton } from "./components/ClearCalculationButton";
+import { ViewResultButton } from "./components/ViewResultButton";
 import { DistributorSelect } from "./components/DistributorSelect";
 import { EnergyEstimateNotice } from "./components/EnergyEstimateNotice";
 import { CostBreakdown } from "./components/CostBreakdown";
@@ -31,6 +32,7 @@ import { useSavedCalculations } from "./hooks/useSavedCalculations";
 import { QuotationAction } from "../quotation/components/QuotationAction";
 import { QuotationDialog } from "../quotation/components/QuotationDialog";
 import { AppIcon } from "../../shared/ui/AppIcon";
+import { trackGa4Event } from "../../infrastructure/analytics/ga4";
 import styles from "./CostCalculatorPage.module.css";
 
 export interface FormValues {
@@ -198,6 +200,13 @@ export function CostCalculatorPage() {
     restore: restoreDraft,
     reset: resetForm,
   });
+  const viewResult = useCallback(() => {
+    trackGa4Event("view_result_clicked");
+    document.getElementById("pricing-title")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, []);
   const { recent, status, save, remove } = useSavedCalculations({
     repository: savedCalculationRepository,
   });
@@ -243,7 +252,14 @@ export function CostCalculatorPage() {
               alt="Vaso decorativo rosa com textura espiral, impresso em 3D"
             />
           </div>
-          <a className={styles.mobileResultLink} href="#pricing-title">
+          <a
+            className={styles.mobileResultLink}
+            href="#pricing-title"
+            onClick={(event) => {
+              event.preventDefault();
+              viewResult();
+            }}
+          >
             Ver resultado atual
             <span aria-hidden="true">↓</span>
           </a>
@@ -531,7 +547,10 @@ export function CostCalculatorPage() {
               />
             </div>
           </section>
-          <ClearCalculationButton onClear={clear} />
+          <div className={styles.formActions}>
+            <ClearCalculationButton onClear={clear} />
+            <ViewResultButton onClick={viewResult} />
+          </div>
         </form>
 
         <aside
@@ -543,7 +562,12 @@ export function CostCalculatorPage() {
             <>
               <PricingSummary result={result} />
               <CostBreakdown result={result} />
-              <QuotationAction onClick={() => setIsQuotationOpen(true)} />
+              <QuotationAction
+                onClick={() => {
+                  trackGa4Event("quotation_opened");
+                  setIsQuotationOpen(true);
+                }}
+              />
             </>
           ) : (
             <section className={styles.emptyResult}>

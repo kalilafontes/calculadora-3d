@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { CostCalculatorPage } from "./CostCalculatorPage";
 
 describe("CostCalculatorPage", () => {
@@ -112,8 +112,27 @@ describe("CostCalculatorPage", () => {
     expect(window.localStorage.getItem("calculadora3d:draft:v1")).toBeNull();
   });
 
+  it("leva ao resultado e registra o clique no atalho de resultado", async () => {
+    const user = userEvent.setup();
+    const gtag = vi.fn();
+    const scrollIntoView = vi.fn();
+    window.gtag = gtag;
+    Element.prototype.scrollIntoView = scrollIntoView;
+    render(<CostCalculatorPage />);
+
+    await user.click(screen.getByRole("button", { name: "Ver resultado" }));
+
+    expect(scrollIntoView).toHaveBeenCalledWith({
+      behavior: "smooth",
+      block: "start",
+    });
+    expect(gtag).toHaveBeenCalledWith("event", "view_result_clicked");
+  });
+
   it("abre o formulário de orçamento a partir do resultado", async () => {
     const user = userEvent.setup();
+    const gtag = vi.fn();
+    window.gtag = gtag;
     render(<CostCalculatorPage />);
 
     await user.click(
@@ -123,6 +142,7 @@ describe("CostCalculatorPage", () => {
     expect(
       screen.getByRole("dialog", { name: "Gerar orçamento em PDF" }),
     ).toBeInTheDocument();
+    expect(gtag).toHaveBeenCalledWith("event", "quotation_opened");
     expect(screen.getByLabelText("Nome ou empresa")).toBeInTheDocument();
     expect(screen.getByLabelText("Nome do cliente")).toBeInTheDocument();
     expect(screen.getByLabelText("Escolher cor da marca")).toHaveValue(

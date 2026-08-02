@@ -276,6 +276,13 @@
   gap: 1rem;
 }
 
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
 .emptyResult {
   padding: 1.5rem;
   border: 1px solid var(--color-border);
